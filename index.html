@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Morgan — Web Design Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --c-bg: #0a0a0a;
+    --c-surface: #111111;
+    --c-card: #161616;
+    --c-border: rgba(255,255,255,0.07);
+    --c-accent: #d4af6a;
+    --c-accent2: #a3c4bc;
+    --c-text: #f0ede8;
+    --c-muted: rgba(240,237,232,0.45);
+    --c-tag: rgba(212,175,106,0.12);
+    --c-tag-text: #d4af6a;
+    --radius: 12px;
+    --font: 'Montserrat', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 60px;
+    border-bottom: 1px solid var(--c-border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-text);
+  }
+  .nav-logo span { color: var(--c-accent); }
+
+  nav ul { list-style: none; display: flex; gap: 36px; }
+  nav ul li a {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover { color: var(--c-text); }
+
+  /* HERO */
+  .hero {
+    padding: 100px 60px 80px;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--c-accent);
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 200;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--c-accent);
+  }
+
+  .hero p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--c-muted);
+    max-width: 520px;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--c-accent);
+    color: var(--c-accent);
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 2px;
+    transition: background 0.3s, color 0.3s;
+  }
+  .hero-cta:hover {
+    background: var(--c-accent);
+    color: var(--c-bg);
+  }
+
+  /* STATS */
+  .stats-bar {
+    display: flex;
+    gap: 48px;
+    padding: 36px 60px;
+    border-top: 1px solid var(--c-border);
+    border-bottom: 1px solid var(--c-border);
+    margin-bottom: 80px;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 200;
+    color: var(--c-text);
+  }
+  .stat-num span { color: var(--c-accent); }
+  .stat-label {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-top: 4px;
+  }
+
+  /* SECTION */
+  .section-header {
+    padding: 0 60px;
+    margin-bottom: 48px;
+  }
+  .section-tag {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--c-accent);
+  }
+  .section-header h2 {
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 200;
+    letter-spacing: -0.01em;
+  }
+  .section-header p {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--c-muted);
+    margin-top: 12px;
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  /* GRID */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--c-border);
+    margin: 0 0 80px;
+  }
+
+  @media (max-width: 900px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    nav ul { display: none; }
+    nav, .hero, .stats-bar, .section-header { padding-left: 24px; padding-right: 24px; }
+    .stats-bar { gap: 24px; flex-wrap: wrap; }
+  }
+  @media (max-width: 560px) {
+    .portfolio-grid { grid-template-columns: 1fr; }
+  }
+
+  /* CARD */
+  .portfolio-card {
+    background: var(--c-card);
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .portfolio-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-visual {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.6s ease;
+  }
+  .portfolio-card:hover .card-bg { transform: scale(1.05); }
+
+  .card-icon {
+    font-size: 36px;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+    color: white;
+    opacity: 0.9;
+  }
+
+  .card-title-block {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 20px;
+  }
+  .card-type {
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .card-name {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
+  .card-city {
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+
+  /* HOVER OVERLAY */
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: rgba(0,0,0,0.82);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 10;
+  }
+  .portfolio-card:hover .card-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .overlay-title {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: 0 24px;
+    color: white;
+  }
+  .overlay-sub {
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    text-align: center;
+  }
+
+  .overlay-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--c-accent);
+    color: #0a0a0a;
+    font-family: var(--font);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 11px 22px;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .overlay-btn:hover { background: white; transform: scale(1.03); }
+  .overlay-btn i { font-size: 11px; }
+
+  /* CARD BG THEMES */
+  .bg-hvac     { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
+  .bg-roofing  { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
+  .bg-electric { background: linear-gradient(135deg, #1a1a0a, #2d2a00, #4a3f00); }
+  .bg-pest     { background: linear-gradient(135deg, #0d2b1e, #1a4731, #0a2015); }
+  .bg-lawn     { background: linear-gradient(135deg, #0a2010, #1e4020, #0d3015); }
+  .bg-pool     { background: linear-gradient(135deg, #001a2c, #003d5c, #005580); }
+  .bg-pressure { background: linear-gradient(135deg, #1c1c1c, #2d2d2d, #3a3a3a); }
+
+  /* ABOUT */
+  .about-section {
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    border-top: 1px solid var(--c-border);
+    margin-top: 20px;
+  }
+  @media (max-width: 780px) {
+    .about-section { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
+  }
+
+  .about-left h3 {
+    font-size: 26px;
+    font-weight: 200;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+  .about-left p {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--c-muted);
+    margin-bottom: 16px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .skill-item {
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    background: var(--c-surface);
+  }
+  .skill-item i {
+    font-size: 18px;
+    color: var(--c-accent);
+    margin-bottom: 10px;
+  }
+  .skill-item h4 {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .skill-item p {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--c-muted);
+    line-height: 1.5;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    padding: 80px 60px;
+    border-top: 1px solid var(--c-border);
+    text-align: center;
+  }
+  @media (max-width: 600px) { .contact-section { padding: 60px 24px; } }
+
+  .contact-section h2 {
+    font-size: 32px;
+    font-weight: 200;
+    margin-bottom: 14px;
+  }
+  .contact-section p {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--c-muted);
+    margin-bottom: 36px;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--c-border);
+    color: var(--c-text);
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 2px;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .contact-link:hover { border-color: var(--c-accent); color: var(--c-accent); }
+  .contact-link i { font-size: 13px; }
+
+  /* FOOTER */
+  footer {
+    padding: 28px 60px;
+    border-top: 1px solid var(--c-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--c-muted);
+    letter-spacing: 0.08em;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  @media (max-width: 600px) { footer { padding: 24px; flex-direction: column; text-align: center; } }
+
+  /* TAG CHIPS */
+  .tag {
+    display: inline-block;
+    background: var(--c-tag);
+    color: var(--c-tag-text);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--c-accent);
+    margin: 32px 60px;
+    opacity: 0.4;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Alex<span>.</span>Morgan</div>
+  <ul>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Web Designer &amp; Developer</div>
+  <h1>Crafting digital experiences for <em>service-based</em> businesses</h1>
+  <p>I build fast, clean, conversion-focused websites for home service companies across Florida. Every project is designed to rank, convert, and impress.</p>
+  <a href="#portfolio" class="hero-cta"><i class="fa-solid fa-arrow-down"></i> View Portfolio</a>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">7<span>+</span></div><div class="stat-label">Live Projects</div></div>
+  <div class="stat"><div class="stat-num">100<span>%</span></div><div class="stat-label">Mobile Optimized</div></div>
+  <div class="stat"><div class="stat-num">FL</div><div class="stat-label">Statewide Coverage</div></div>
+  <div class="stat"><div class="stat-num">5<span>★</span></div><div class="stat-label">Client Rating</div></div>
+</div>
+
+<!-- PORTFOLIO -->
+<div id="portfolio">
+  <div class="section-header">
+    <div class="section-tag">Selected Work</div>
+    <h2>Florida Service Business Websites</h2>
+    <p>Real, top-ranking service companies across Florida — built to dominate local search and convert visitors into customers.</p>
+  </div>
+
+  <div class="portfolio-grid">
+
+    <!-- 1. HVAC Orlando -->
+    <div class="portfolio-card">
+      <div class="card-visual">
+        <div class="card-bg bg-hvac"></div>
+        <div class="card-icon"><i class="fa-solid fa-temperature-half"></i></div>
+        <div class="card-title-block">
+          <div class="card-type">HVAC Repair</div>
+          <div class="card-name">Ferran Services</div>
+          <div class="card-city">Orlando, FL</div>
+        </div>
+      </div>
+      <div class="card-overlay">
+        <div class="overlay-sub">HVAC Repair · Orlando</div>
+        <div class="overlay-title">Ferran Services — Trusted since 1910. Top-rated AC repair &amp; HVAC contractor in Central Florida.</div>
+        <a class="overlay-btn" href="https://ferran-services.com/" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+        </a>
+      </div>
+    </div>
+
+    <!-- 2. Roofing Jacksonville -->
+    <div class="portfolio-card">
+      <div class="card-visual">
+        <div class="card-bg bg-roofing"></div>
+        <div class="card-icon"><i class="fa-solid fa-house-chimney"></i></div>
+        <div class="card-title-block">
+          <div class="card-type">Roofing Company</div>
+          <div class="card-name">NEXGEN Roofing</div>
+          <div class="card-city">Jacksonville, FL</div>
+        </div>
+      </div>
+      <div class="card-overlay">
+        <div class="overlay-sub">Roofing · Jacksonville</div>
+        <div class="overlay-title">NEXGEN Roofing — Owens Corning Platinum Preferred, top 1% nationwide. 1,500+ roofs installed.</div>
+        <a class="overlay-btn" href="https://www.nexgenfl.com/" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+        </a>
+      </div>
+    </div>
+
+    <!-- 3. Electrical St. Pete -->
+    <div class="portfolio-card">
+      <div class="card-visual">
+        <div class="card-bg bg-electric"></div>
+        <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="card-title-block">
+          <div class="card-type">Electrical Services</div>
+          <div class="card-name">Suncoast Electric Inc.</div>
+          <div class="card-city">St. Petersburg, FL</div>
+        </div>
+      </div>
+      <div class="card-overlay">
+        <div class="overlay-sub">Electrical · St. Petersburg</div>
+        <div class="overlay-title">Suncoast Electric — Family-owned electrical contractor serving St. Pete since 1970. 24/7 service.</div>
+        <a class="overlay-btn" href="https://suncoastelectricinc.com/" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+        </a>
+      </div>
+    </div>
+
+    <!-- 4. Pest Control Fort Lauderdale -->
+    <div class="portfolio-card">
+      <div class="card-visual">
+        <div class="card-bg bg-pest"></div>
+        <div class="card-icon"><i class="fa-solid fa-bug-slash"></i></div>
+        <div class="card-title-block">
+          <div class="card-type">Pest Control</div>
+          <div class="card-name">Native Pest Management</div>
+          <div class="card-city">Fort Lauderdale, FL</div>
+        </div>
+      </div>
+      <div class="card-overlay">
+        <div class="overlay-sub">Pest Control · Fort Lauderdale</div>
+        <div class="overlay-title">Native Pest Management — 2,000+ five-star reviews. Pet-friendly, eco-safe pest control across Broward County.</div>
+        <a class="overlay-btn" href="https://www.nativepestmanagement.com/fort-lauderdale-fl-pest-control/" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+        </a>
+      </div>
+    </div>
+
+    <!-- 5. Lawn Care Cape Coral -->
+    <div class="portfolio-card">
+      <div class="card-visual">
+        <div class="card-bg bg-lawn"></div>
+        <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
+        <div class="card-title-block">
+          <div class="card-type">Lawn Care Services</div>
+          <div class="card-name">Blue Collar Q</div>
+          <div class="card-city">Cape Coral, FL</div>
+        </div>
+      </div>
+      <div class="card-overlay">
+        <div class="overlay-sub">Lawn Care · Cape Coral</div>
+        <div class="overlay-title">Blue Collar Q — Cape Coral's top-rated landscaping company. 3D renders, hardscaping &amp; full lawn maintenance.</div>
+        <a class="overlay-btn" href="https://bluecollarq.net/" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+        </a>
+      </div>
+    </div>
+
+    <!-- 6. Pool Cleaning Sarasota -->
+    <div class="portfolio-card">
+      <div class="card-visual">
+        <div class="card-bg bg-pool"></div>
+        <div class="card-icon"><i class="fa-solid fa-water-ladder"></i></div>
+        <div class="card-title-block">
+          <div class="card-type">Pool Cleaning Service</div>
+          <div class="card-name">On-Time Pool Service</div>
+          <div class="card-city">Sarasota, FL</div>
+        </div>
+      </div>
+      <div class="card-overlay">
+        <div class="overlay-sub">Pool Cleaning · Sarasota</div>
+        <div class="overlay-title">On-Time Pool Service — Est. 2004. A+ BBB rated. Weekly maintenance, repairs &amp; full pool renovations.</div>
+        <a class="overlay-btn" href="https://ontimepoolservice.com/" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+        </a>
+      </div>
+    </div>
+
+    <!-- 7. Pressure Washing Clearwater -->
+    <div class="portfolio-card">
+      <div class="card-visual">
+        <div class="card-bg bg-pressure"></div>
+        <div class="card-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+        <div class="card-title-block">
+          <div class="card-type">Pressure Washing</div>
+          <div class="card-name">Clearwater Soft Wash Pros</div>
+          <div class="card-city">Clearwater, FL</div>
+        </div>
+      </div>
+      <div class="card-overlay">
+        <div class="overlay-sub">Pressure Washing · Clearwater</div>
+        <div class="overlay-title">Clearwater Soft Wash Pros — Licensed, insured, family-owned. 5-star rated with best price guarantee.</div>
+        <a class="overlay-btn" href="https://clearwatersoftwashpros.com/" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+        </a>
+      </div>
+    </div>
+
+    <!-- 8. Roofing Jacksonville alt -->
+    <div class="portfolio-card">
+      <div class="card-visual">
+        <div class="card-bg" style="background: linear-gradient(135deg, #2a0a1f, #4a1535, #3d1028);"></div>
+        <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="card-title-block">
+          <div class="card-type">Roofing Contractor</div>
+          <div class="card-name">Avenue Roofing</div>
+          <div class="card-city">Jacksonville, FL</div>
+        </div>
+      </div>
+      <div class="card-overlay">
+        <div class="overlay-sub">Roofing · Jacksonville</div>
+        <div class="overlay-title">Avenue Roofing — Directorii Pro, Top 1% Florida contractors. $250K Elite Status customer guarantee.</div>
+        <a class="overlay-btn" href="https://avenueroofing.com/" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+        </a>
+      </div>
+    </div>
+
+    <!-- 9. HVAC Del-Air -->
+    <div class="portfolio-card">
+      <div class="card-visual">
+        <div class="card-bg" style="background: linear-gradient(135deg, #001a2c, #002a40, #004060);"></div>
+        <div class="card-icon"><i class="fa-solid fa-wind"></i></div>
+        <div class="card-title-block">
+          <div class="card-type">HVAC · Plumbing · Electric</div>
+          <div class="card-name">Del-Air Services</div>
+          <div class="card-city">Orlando, FL</div>
+        </div>
+      </div>
+      <div class="card-overlay">
+        <div class="overlay-sub">HVAC · Orlando</div>
+        <div class="overlay-title">Del-Air — Central Florida's HVAC leader since 1983. 24/7 service, full residential &amp; commercial coverage.</div>
+        <a class="overlay-btn" href="https://www.delair.com/orlando-north/hvac/" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="about-left">
+    <div class="section-tag" style="margin-bottom:16px;">About Me</div>
+    <h3>Building websites that work as hard as your business does</h3>
+    <p>I specialize in web design and development for service-based businesses — the plumbers, roofers, electricians, and landscapers who need a site that ranks on Google, loads fast, and turns visitors into phone calls.</p>
+    <p>Every project is hand-coded for performance, mobile-first, and crafted with the local SEO strategy baked in from day one. No templates. No bloat.</p>
+    <div style="margin-top:24px;">
+      <span class="tag">Local SEO</span>&nbsp;
+      <span class="tag">Mobile-First</span>&nbsp;
+      <span class="tag">Conversion Design</span>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="section-tag" style="margin-bottom:16px;">Skills &amp; Services</div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <i class="fa-solid fa-code"></i>
+        <h4>Web Development</h4>
+        <p>Clean, fast HTML/CSS/JS with no unnecessary frameworks</p>
+      </div>
+      <div class="skill-item">
+        <i class="fa-solid fa-magnifying-glass-location"></i>
+        <h4>Local SEO</h4>
+        <p>Rank on page 1 for your city and service keywords</p>
+      </div>
+      <div class="skill-item">
+        <i class="fa-solid fa-mobile-screen"></i>
+        <h4>Responsive Design</h4>
+        <p>Pixel-perfect layouts on every screen size</p>
+      </div>
+      <div class="skill-item">
+        <i class="fa-solid fa-gauge-high"></i>
+        <h4>Performance</h4>
+        <p>Sub-2s load times, 95+ Google PageSpeed scores</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-tag" style="justify-content:center; margin-bottom:16px;">Get In Touch</div>
+  <h2>Let's build something great</h2>
+  <p>Ready to elevate your service business online? I'd love to hear about your project.</p>
+  <div class="contact-links">
+    <a href="mailto:hello@alexmorgan.design" class="contact-link"><i class="fa-solid fa-envelope"></i> Email Me</a>
+    <a href="tel:+17275550100" class="contact-link"><i class="fa-solid fa-phone"></i> Call Me</a>
+    <a href="#" class="contact-link"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Alex Morgan — Web Design</span>
+  <span>St. Petersburg, Florida</span>
+</footer>
+
+<script>
+  const cards = document.querySelectorAll('.portfolio-card');
+
+  function revealOnScroll() {
+    const winH = window.innerHeight;
+    cards.forEach((card, i) => {
+      const rect = card.getBoundingClientRect();
+      if (rect.top < winH - 60) {
+        setTimeout(() => card.classList.add('visible'), i * 90);
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', () => {
+    setTimeout(revealOnScroll, 100);
+  });
+  revealOnScroll();
+</script>
+
+</body>
+</html>
