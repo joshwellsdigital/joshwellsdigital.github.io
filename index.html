@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alex Morgan — Web Design Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Josh Wells — Web Design Portfolio | Florida Service Businesses</title>
+<meta name="description" content="Josh Wells — Web Designer & Developer in Florida. Modern, high-converting websites for service-based businesses.">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -25,7 +27,6 @@
   }
 
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--c-bg);
     color: var(--c-text);
@@ -35,31 +36,41 @@
     min-height: 100vh;
   }
 
-  /* NAV */
+  /* Star Particles */
+  #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--d) var(--dl) infinite; opacity: 0; }
+  @keyframes twinkle { 0%,100%{opacity:0;transform:scale(.5)} 50%{opacity:var(--op);transform:scale(1)} }
+
+  /* NAV with shrink effect + submenu */
   nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 28px 60px;
     border-bottom: 1px solid var(--c-border);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     background: rgba(10,10,10,0.92);
     backdrop-filter: blur(12px);
-    z-index: 100;
+    z-index: 1000;
+    transition: all 0.3s ease;
   }
-
+  nav.shrink { padding: 16px 60px; background: rgba(10,10,10,0.98); }
   .nav-logo {
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--c-text);
+    text-decoration: none;
   }
   .nav-logo span { color: var(--c-accent); }
-
-  nav ul { list-style: none; display: flex; gap: 36px; }
-  nav ul li a {
+  
+  .nav-links-desktop { list-style: none; display: flex; gap: 36px; align-items: center; }
+  .nav-links-desktop li { position: relative; }
+  .nav-links-desktop a {
     font-size: 11px;
     font-weight: 400;
     letter-spacing: 0.15em;
@@ -68,14 +79,203 @@
     text-decoration: none;
     transition: color 0.3s;
   }
-  nav ul li a:hover { color: var(--c-text); }
-
-  /* HERO */
-  .hero {
-    padding: 100px 60px 80px;
-    max-width: 900px;
+  .nav-links-desktop a:hover { color: var(--c-text); }
+  
+  /* Submenu hover slide-up effect */
+  .submenu-item { position: relative; }
+  .submenu {
+    position: absolute;
+    top: 32px;
+    left: -20px;
+    background: rgba(10,10,10,0.96);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--c-border);
+    border-radius: 12px;
+    padding: 10px 0;
+    min-width: 180px;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 1001;
   }
+  .submenu a {
+    display: block;
+    padding: 8px 20px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--c-muted);
+    white-space: nowrap;
+  }
+  .submenu a:hover { background: rgba(212,175,106,0.1); color: var(--c-accent); }
+  .submenu-item:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .nav-cta {
+    background: var(--c-accent);
+    color: var(--c-bg);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.2s;
+  }
+  .nav-cta:hover { background: #fff; transform: translateY(-1px); }
 
+  /* Mobile Menu Button (animated to X) */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    position: relative;
+    z-index: 1010;
+  }
+  .menu-toggle span {
+    display: block;
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: var(--c-accent);
+    border-radius: 2px;
+    transition: 0.3s ease-in-out;
+  }
+  .menu-toggle span:nth-child(1) { top: 8px; left: 4px; }
+  .menu-toggle span:nth-child(2) { top: 15px; left: 4px; }
+  .menu-toggle span:nth-child(3) { top: 22px; left: 4px; }
+  .menu-toggle.active span:nth-child(1) { transform: rotate(45deg); top: 15px; }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
+  .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg); top: 15px; }
+
+  /* Mobile Slide Menu */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 320px;
+    height: 100vh;
+    background: rgba(10,10,10,0.98);
+    backdrop-filter: blur(20px);
+    z-index: 1005;
+    padding: 100px 28px 40px;
+    box-shadow: -8px 0 32px rgba(0,0,0,0.5);
+    transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px solid var(--c-border);
+  }
+  .mobile-menu.open { right: 0; }
+  .mobile-nav-list { list-style: none; display: flex; flex-direction: column; gap: 24px; }
+  .mobile-nav-item { border-bottom: 1px solid var(--c-border); padding-bottom: 8px; }
+  .mobile-nav-link {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--c-text);
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mobile-submenu-toggle {
+    background: none;
+    border: none;
+    color: var(--c-accent);
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 32px;
+  }
+  .mobile-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    list-style: none;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .mobile-submenu.open-sub { max-height: 200px; margin-top: 12px; }
+  .mobile-submenu li a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--c-muted);
+    text-decoration: none;
+    display: block;
+    padding: 6px 0;
+  }
+  .mobile-cta {
+    margin-top: 32px;
+    background: var(--c-accent);
+    color: var(--c-bg);
+    text-align: center;
+    padding: 14px;
+    border-radius: 40px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    display: block;
+  }
+  .close-menu-btn {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+  .close-menu-btn::before, .close-menu-btn::after {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 4px;
+    width: 24px;
+    height: 2px;
+    background: var(--c-accent);
+    transform: rotate(45deg);
+  }
+  .close-menu-btn::after { transform: rotate(-45deg); }
+  .overlay-blur {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(3px);
+    z-index: 1004;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+  }
+  .overlay-blur.active { opacity: 1; visibility: visible; }
+
+  /* Back to Top */
+  .back-to-top {
+    position: fixed; bottom: 30px; right: 30px; width: 46px; height: 46px;
+    background: var(--c-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    z-index: 99; opacity: 0; visibility: hidden; transition: 0.3s; cursor: pointer; border: none;
+    color: #0a0a0a; font-size: 1.3rem;
+  }
+  .back-to-top.show { opacity: 1; visibility: visible; }
+
+  /* Hero */
+  .hero {
+    padding: 140px 60px 80px;
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+  }
   .hero-eyebrow {
     font-size: 10px;
     font-weight: 400;
@@ -87,27 +287,14 @@
     align-items: center;
     gap: 12px;
   }
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 32px;
-    height: 1px;
-    background: var(--c-accent);
-  }
-
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--c-accent); }
   .hero h1 {
     font-size: clamp(36px, 5vw, 62px);
     font-weight: 200;
     line-height: 1.15;
-    letter-spacing: -0.02em;
     margin-bottom: 24px;
   }
-  .hero h1 em {
-    font-style: normal;
-    font-weight: 500;
-    color: var(--c-accent);
-  }
-
+  .hero h1 em { font-style: normal; font-weight: 500; color: var(--c-accent); }
   .hero p {
     font-size: 15px;
     font-weight: 300;
@@ -116,29 +303,23 @@
     max-width: 520px;
     margin-bottom: 40px;
   }
-
   .hero-cta {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     border: 1px solid var(--c-accent);
     color: var(--c-accent);
-    font-family: var(--font);
     font-size: 11px;
     font-weight: 400;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     text-decoration: none;
     padding: 14px 28px;
-    border-radius: 2px;
-    transition: background 0.3s, color 0.3s;
+    transition: 0.3s;
   }
-  .hero-cta:hover {
-    background: var(--c-accent);
-    color: var(--c-bg);
-  }
+  .hero-cta:hover { background: var(--c-accent); color: var(--c-bg); }
 
-  /* STATS */
+  /* Stats Bar */
   .stats-bar {
     display: flex;
     gap: 48px;
@@ -148,29 +329,14 @@
     margin-bottom: 80px;
   }
   .stat { text-align: center; }
-  .stat-num {
-    font-size: 28px;
-    font-weight: 200;
-    color: var(--c-text);
-  }
+  .stat-num { font-size: 28px; font-weight: 200; color: var(--c-text); }
   .stat-num span { color: var(--c-accent); }
-  .stat-label {
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--c-muted);
-    margin-top: 4px;
-  }
+  .stat-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-muted); margin-top: 4px; }
 
-  /* SECTION */
-  .section-header {
-    padding: 0 60px;
-    margin-bottom: 48px;
-  }
+  /* Portfolio Section */
+  .section-header { padding: 0 60px; margin-bottom: 48px; }
   .section-tag {
     font-size: 10px;
-    font-weight: 400;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--c-accent);
@@ -179,182 +345,129 @@
     align-items: center;
     gap: 12px;
   }
-  .section-tag::before {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 1px;
-    background: var(--c-accent);
+  .section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--c-accent); }
+  .section-header h2 { font-size: clamp(22px, 3vw, 34px); font-weight: 200; }
+  .section-header p { font-size: 14px; color: var(--c-muted); margin-top: 12px; max-width: 480px; }
+
+  /* Dynamic Headline fade-up */
+  .fade-up-headline {
+    animation: headlineFadeUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
   }
-  .section-header h2 {
-    font-size: clamp(22px, 3vw, 34px);
-    font-weight: 200;
-    letter-spacing: -0.01em;
-  }
-  .section-header p {
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--c-muted);
-    margin-top: 12px;
-    max-width: 480px;
-    line-height: 1.7;
+  @keyframes headlineFadeUp {
+    0% { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
-  /* GRID */
+  /* Filter Tabs */
+  .filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 60px 24px;
+    border-bottom: 1px solid var(--c-border);
+    margin-bottom: 32px;
+  }
+  .filter-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 20px;
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    cursor: pointer;
+    transition: 0.2s;
+    border-radius: 30px;
+  }
+  .filter-btn:hover { color: var(--c-accent); }
+  .filter-btn.active { background: var(--c-accent); color: var(--c-bg); }
+
+  /* Portfolio Grid - with spacing between cards */
   .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--c-border);
-    margin: 0 0 80px;
+    gap: 28px;
+    padding: 0 60px;
+    margin-bottom: 60px;
   }
+  @media (max-width: 1000px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+  @media (max-width: 700px) { .portfolio-grid { grid-template-columns: 1fr; padding: 0 24px; gap: 24px; } }
 
-  @media (max-width: 900px) {
-    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-    nav ul { display: none; }
-    nav, .hero, .stats-bar, .section-header { padding-left: 24px; padding-right: 24px; }
-    .stats-bar { gap: 24px; flex-wrap: wrap; }
-  }
-  @media (max-width: 560px) {
-    .portfolio-grid { grid-template-columns: 1fr; }
-  }
-
-  /* CARD */
   .portfolio-card {
     background: var(--c-card);
-    position: relative;
+    border-radius: 16px;
     overflow: hidden;
-    aspect-ratio: 4/3;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--c-border);
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(20px);
   }
   .portfolio-card.visible {
     opacity: 1;
     transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
-
-  .card-visual {
+  .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.3); border-color: var(--c-accent); }
+  
+  .card-image {
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
   }
-
-  .card-bg {
-    position: absolute;
-    inset: 0;
-    transition: transform 0.6s ease;
-  }
-  .portfolio-card:hover .card-bg { transform: scale(1.05); }
-
-  .card-icon {
-    font-size: 36px;
-    margin-bottom: 14px;
-    position: relative;
-    z-index: 1;
-    color: white;
-    opacity: 0.9;
-  }
-
-  .card-title-block {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 0 20px;
+  .portfolio-card:hover .card-image { transform: scale(1.03); }
+  
+  .card-info {
+    padding: 18px 20px 22px;
+    background: var(--c-card);
   }
   .card-type {
     font-size: 9px;
-    font-weight: 400;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    opacity: 0.7;
-    margin-bottom: 6px;
-  }
-  .card-name {
-    font-size: 13px;
     font-weight: 500;
-    letter-spacing: 0.04em;
-    line-height: 1.3;
-  }
-  .card-city {
-    font-size: 10px;
-    font-weight: 300;
-    letter-spacing: 0.15em;
-    opacity: 0.6;
-    margin-top: 4px;
-  }
-
-  /* HOVER OVERLAY */
-  .card-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    background: rgba(0,0,0,0.82);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    z-index: 10;
-  }
-  .portfolio-card:hover .card-overlay {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .overlay-title {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-align: center;
-    padding: 0 24px;
-    color: white;
-  }
-  .overlay-sub {
-    font-size: 10px;
-    font-weight: 300;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--c-accent);
-    text-align: center;
+    margin-bottom: 8px;
   }
-
-  .overlay-btn {
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--c-text);
+  }
+  .card-city {
+    font-size: 11px;
+    color: var(--c-muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-desc {
+    font-size: 12px;
+    color: var(--c-muted);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .card-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--c-accent);
-    color: #0a0a0a;
-    font-family: var(--font);
     font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: var(--c-accent);
     text-decoration: none;
-    padding: 11px 22px;
-    border-radius: 2px;
-    transition: background 0.2s, transform 0.2s;
+    transition: gap 0.2s;
   }
-  .overlay-btn:hover { background: white; transform: scale(1.03); }
-  .overlay-btn i { font-size: 11px; }
+  .card-link:hover { gap: 12px; }
 
-  /* CARD BG THEMES */
-  .bg-hvac     { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
-  .bg-roofing  { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
-  .bg-electric { background: linear-gradient(135deg, #1a1a0a, #2d2a00, #4a3f00); }
-  .bg-pest     { background: linear-gradient(135deg, #0d2b1e, #1a4731, #0a2015); }
-  .bg-lawn     { background: linear-gradient(135deg, #0a2010, #1e4020, #0d3015); }
-  .bg-pool     { background: linear-gradient(135deg, #001a2c, #003d5c, #005580); }
-  .bg-pressure { background: linear-gradient(135deg, #1c1c1c, #2d2d2d, #3a3a3a); }
-
-  /* ABOUT */
+  /* About Section */
   .about-section {
     padding: 60px;
     display: grid;
@@ -363,158 +476,111 @@
     border-top: 1px solid var(--c-border);
     margin-top: 20px;
   }
-  @media (max-width: 780px) {
-    .about-section { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
-  }
+  @media (max-width: 780px) { .about-section { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; } }
+  .about-left h3 { font-size: 26px; font-weight: 200; line-height: 1.4; margin-bottom: 20px; }
+  .about-left p { font-size: 13px; line-height: 1.9; color: var(--c-muted); margin-bottom: 16px; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .skill-item { border: 1px solid var(--c-border); border-radius: var(--radius); padding: 16px; background: var(--c-surface); }
+  .skill-item i { font-size: 18px; color: var(--c-accent); margin-bottom: 10px; }
+  .skill-item h4 { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .skill-item p { font-size: 11px; color: var(--c-muted); }
+  .tag { background: var(--c-tag); color: var(--c-tag-text); font-size: 9px; padding: 4px 10px; border-radius: 2px; }
 
-  .about-left h3 {
-    font-size: 26px;
-    font-weight: 200;
-    line-height: 1.4;
-    margin-bottom: 20px;
-  }
-  .about-left p {
-    font-size: 13px;
-    font-weight: 300;
-    line-height: 1.9;
-    color: var(--c-muted);
-    margin-bottom: 16px;
-  }
+  /* Pricing & FAQ */
+  .pricing-section, .faq-section { padding: 80px 60px; border-top: 1px solid var(--c-border); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; margin-top: 48px; }
+  .pricing-card { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: 16px; padding: 32px 24px; }
+  .pricing-card.featured { border-color: var(--c-accent); background: rgba(212,175,106,0.05); }
+  .pricing-popular { background: var(--c-accent); color: var(--c-bg); font-size: 10px; font-weight: 600; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 16px; }
+  .pricing-price { font-size: 42px; font-weight: 300; margin: 16px 0 8px; }
+  .pricing-features { list-style: none; margin: 24px 0 32px; display: flex; flex-direction: column; gap: 12px; }
+  .pricing-features li { font-size: 12px; color: var(--c-muted); display: flex; align-items: center; gap: 10px; }
+  .pricing-features li i { color: var(--c-accent); width: 18px; }
+  .pricing-btn { display: block; text-align: center; padding: 12px; border: 1px solid var(--c-accent); color: var(--c-accent); text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 30px; }
+  .pricing-btn:hover { background: var(--c-accent); color: var(--c-bg); }
 
-  .skills-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .skill-item {
-    border: 1px solid var(--c-border);
-    border-radius: var(--radius);
-    padding: 16px;
-    background: var(--c-surface);
-  }
-  .skill-item i {
-    font-size: 18px;
-    color: var(--c-accent);
-    margin-bottom: 10px;
-  }
-  .skill-item h4 {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    margin-bottom: 4px;
-  }
-  .skill-item p {
-    font-size: 11px;
-    font-weight: 300;
-    color: var(--c-muted);
-    line-height: 1.5;
-  }
+  .faq-grid { max-width: 800px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 16px; }
+  .faq-item { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: 12px; overflow: hidden; }
+  .faq-question { padding: 18px 24px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+  .faq-question i { transition: transform 0.3s; color: var(--c-accent); }
+  .faq-answer { max-height: 0; padding: 0 24px; overflow: hidden; transition: 0.35s; color: var(--c-muted); font-size: 13px; }
+  .faq-item.active .faq-answer { max-height: 150px; padding: 0 24px 20px; }
+  .faq-item.active .faq-question i { transform: rotate(45deg); }
 
-  /* CONTACT */
-  .contact-section {
-    padding: 80px 60px;
-    border-top: 1px solid var(--c-border);
-    text-align: center;
-  }
-  @media (max-width: 600px) { .contact-section { padding: 60px 24px; } }
-
-  .contact-section h2 {
-    font-size: 32px;
-    font-weight: 200;
-    margin-bottom: 14px;
-  }
-  .contact-section p {
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--c-muted);
-    margin-bottom: 36px;
-  }
-
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .contact-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid var(--c-border);
-    color: var(--c-text);
-    font-family: var(--font);
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 12px 24px;
-    border-radius: 2px;
-    transition: border-color 0.3s, color 0.3s;
-  }
+  .contact-section { padding: 80px 60px; border-top: 1px solid var(--c-border); text-align: center; }
+  .contact-section h2 { font-size: 32px; font-weight: 200; margin-bottom: 14px; }
+  .contact-section p { font-size: 14px; color: var(--c-muted); margin-bottom: 36px; }
+  .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .contact-link { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--c-border); color: var(--c-text); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; padding: 12px 24px; transition: 0.3s; }
   .contact-link:hover { border-color: var(--c-accent); color: var(--c-accent); }
-  .contact-link i { font-size: 13px; }
 
-  /* FOOTER */
-  footer {
-    padding: 28px 60px;
-    border-top: 1px solid var(--c-border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    font-weight: 300;
-    color: var(--c-muted);
-    letter-spacing: 0.08em;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  @media (max-width: 600px) { footer { padding: 24px; flex-direction: column; text-align: center; } }
+  footer { padding: 28px 60px; border-top: 1px solid var(--c-border); display: flex; justify-content: space-between; font-size: 11px; color: var(--c-muted); flex-wrap: wrap; }
 
-  /* TAG CHIPS */
-  .tag {
-    display: inline-block;
-    background: var(--c-tag);
-    color: var(--c-tag-text);
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 2px;
-  }
-
-  /* DIVIDER */
-  .divider {
-    width: 40px;
-    height: 1px;
-    background: var(--c-accent);
-    margin: 32px 60px;
-    opacity: 0.4;
+  @media (max-width: 768px) {
+    nav { padding: 18px 24px; }
+    .nav-links-desktop { display: none; }
+    .menu-toggle { display: block; }
+    .hero, .stats-bar, .section-header, .filter-tabs, .pricing-section, .faq-section, .contact-section { padding-left: 24px; padding-right: 24px; }
+    .stats-bar { gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .portfolio-grid { padding: 0 24px; }
+    footer { padding: 24px; flex-direction: column; text-align: center; gap: 12px; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Alex<span>.</span>Morgan</div>
-  <ul>
+<div id="stars"></div>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo">Josh<span>.</span>Wells</a>
+  <ul class="nav-links-desktop">
     <li><a href="#portfolio">Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li class="submenu-item">
+      <a href="#about">Services</a>
+      <ul class="submenu">
+        <li><a href="#about">Web Design</a></li>
+        <li><a href="#about">Local SEO</a></li>
+        <li><a href="#about">CRO</a></li>
+      </ul>
+    </li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
+  <a href="#contact" class="nav-cta">Let's Talk</a>
+  <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-eyebrow">Web Designer &amp; Developer</div>
+<div class="overlay-blur" id="overlayBlur"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-menu-btn" id="closeMenuBtn"></button>
+  <div style="flex:1">
+    <ul class="mobile-nav-list">
+      <li class="mobile-nav-item"><a href="#home" class="mobile-nav-link">Home</a></li>
+      <li class="mobile-nav-item"><a href="#portfolio" class="mobile-nav-link">Work</a></li>
+      <li class="mobile-nav-item">
+        <div class="mobile-nav-link" style="cursor:pointer;"><span>Services</span><button class="mobile-submenu-toggle" id="mobileSubToggle">+</button></div>
+        <ul class="mobile-submenu" id="mobileSubmenu">
+          <li><a href="#about">Web Design</a></li>
+          <li><a href="#about">Local SEO</a></li>
+          <li><a href="#about">CRO</a></li>
+        </ul>
+      </li>
+      <li class="mobile-nav-item"><a href="#pricing" class="mobile-nav-link">Pricing</a></li>
+      <li class="mobile-nav-item"><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+    </ul>
+    <a href="#contact" class="mobile-cta">Let's Talk</a>
+  </div>
+</div>
+
+<button class="back-to-top" id="backToTop">↑</button>
+
+<section class="hero" id="home">
+  <div class="hero-eyebrow">Web Designer & Developer</div>
   <h1>Crafting digital experiences for <em>service-based</em> businesses</h1>
   <p>I build fast, clean, conversion-focused websites for home service companies across Florida. Every project is designed to rank, convert, and impress.</p>
   <a href="#portfolio" class="hero-cta"><i class="fa-solid fa-arrow-down"></i> View Portfolio</a>
 </section>
 
-<!-- STATS -->
 <div class="stats-bar">
   <div class="stat"><div class="stat-num">7<span>+</span></div><div class="stat-label">Live Projects</div></div>
   <div class="stat"><div class="stat-num">100<span>%</span></div><div class="stat-label">Mobile Optimized</div></div>
@@ -522,276 +588,206 @@
   <div class="stat"><div class="stat-num">5<span>★</span></div><div class="stat-label">Client Rating</div></div>
 </div>
 
-<!-- PORTFOLIO -->
 <div id="portfolio">
-  <div class="section-header">
-    <div class="section-tag">Selected Work</div>
-    <h2>Florida Service Business Websites</h2>
-    <p>Real, top-ranking service companies across Florida — built to dominate local search and convert visitors into customers.</p>
+  <div class="section-header" id="dynamicHeader">
+    <div class="section-tag" id="dynamicEyebrow">Selected Work</div>
+    <h2 id="dynamicHeadline">Florida Service<br>Business Websites</h2>
+    <p id="dynamicSubhead">Real, top-ranking service companies across Florida — built to dominate local search and convert visitors into customers.</p>
   </div>
 
-  <div class="portfolio-grid">
-
-    <!-- 1. HVAC Orlando -->
-    <div class="portfolio-card">
-      <div class="card-visual">
-        <div class="card-bg bg-hvac"></div>
-        <div class="card-icon"><i class="fa-solid fa-temperature-half"></i></div>
-        <div class="card-title-block">
-          <div class="card-type">HVAC Repair</div>
-          <div class="card-name">Ferran Services</div>
-          <div class="card-city">Orlando, FL</div>
-        </div>
-      </div>
-      <div class="card-overlay">
-        <div class="overlay-sub">HVAC Repair · Orlando</div>
-        <div class="overlay-title">Ferran Services — Trusted since 1910. Top-rated AC repair &amp; HVAC contractor in Central Florida.</div>
-        <a class="overlay-btn" href="https://ferran-services.com/" target="_blank" rel="noopener">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
-        </a>
-      </div>
-    </div>
-
-    <!-- 2. Roofing Jacksonville -->
-    <div class="portfolio-card">
-      <div class="card-visual">
-        <div class="card-bg bg-roofing"></div>
-        <div class="card-icon"><i class="fa-solid fa-house-chimney"></i></div>
-        <div class="card-title-block">
-          <div class="card-type">Roofing Company</div>
-          <div class="card-name">NEXGEN Roofing</div>
-          <div class="card-city">Jacksonville, FL</div>
-        </div>
-      </div>
-      <div class="card-overlay">
-        <div class="overlay-sub">Roofing · Jacksonville</div>
-        <div class="overlay-title">NEXGEN Roofing — Owens Corning Platinum Preferred, top 1% nationwide. 1,500+ roofs installed.</div>
-        <a class="overlay-btn" href="https://www.nexgenfl.com/" target="_blank" rel="noopener">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
-        </a>
-      </div>
-    </div>
-
-    <!-- 3. Electrical St. Pete -->
-    <div class="portfolio-card">
-      <div class="card-visual">
-        <div class="card-bg bg-electric"></div>
-        <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
-        <div class="card-title-block">
-          <div class="card-type">Electrical Services</div>
-          <div class="card-name">Suncoast Electric Inc.</div>
-          <div class="card-city">St. Petersburg, FL</div>
-        </div>
-      </div>
-      <div class="card-overlay">
-        <div class="overlay-sub">Electrical · St. Petersburg</div>
-        <div class="overlay-title">Suncoast Electric — Family-owned electrical contractor serving St. Pete since 1970. 24/7 service.</div>
-        <a class="overlay-btn" href="https://suncoastelectricinc.com/" target="_blank" rel="noopener">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
-        </a>
-      </div>
-    </div>
-
-    <!-- 4. Pest Control Fort Lauderdale -->
-    <div class="portfolio-card">
-      <div class="card-visual">
-        <div class="card-bg bg-pest"></div>
-        <div class="card-icon"><i class="fa-solid fa-bug-slash"></i></div>
-        <div class="card-title-block">
-          <div class="card-type">Pest Control</div>
-          <div class="card-name">Native Pest Management</div>
-          <div class="card-city">Fort Lauderdale, FL</div>
-        </div>
-      </div>
-      <div class="card-overlay">
-        <div class="overlay-sub">Pest Control · Fort Lauderdale</div>
-        <div class="overlay-title">Native Pest Management — 2,000+ five-star reviews. Pet-friendly, eco-safe pest control across Broward County.</div>
-        <a class="overlay-btn" href="https://www.nativepestmanagement.com/fort-lauderdale-fl-pest-control/" target="_blank" rel="noopener">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
-        </a>
-      </div>
-    </div>
-
-    <!-- 5. Lawn Care Cape Coral -->
-    <div class="portfolio-card">
-      <div class="card-visual">
-        <div class="card-bg bg-lawn"></div>
-        <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
-        <div class="card-title-block">
-          <div class="card-type">Lawn Care Services</div>
-          <div class="card-name">Blue Collar Q</div>
-          <div class="card-city">Cape Coral, FL</div>
-        </div>
-      </div>
-      <div class="card-overlay">
-        <div class="overlay-sub">Lawn Care · Cape Coral</div>
-        <div class="overlay-title">Blue Collar Q — Cape Coral's top-rated landscaping company. 3D renders, hardscaping &amp; full lawn maintenance.</div>
-        <a class="overlay-btn" href="https://bluecollarq.net/" target="_blank" rel="noopener">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
-        </a>
-      </div>
-    </div>
-
-    <!-- 6. Pool Cleaning Sarasota -->
-    <div class="portfolio-card">
-      <div class="card-visual">
-        <div class="card-bg bg-pool"></div>
-        <div class="card-icon"><i class="fa-solid fa-water-ladder"></i></div>
-        <div class="card-title-block">
-          <div class="card-type">Pool Cleaning Service</div>
-          <div class="card-name">On-Time Pool Service</div>
-          <div class="card-city">Sarasota, FL</div>
-        </div>
-      </div>
-      <div class="card-overlay">
-        <div class="overlay-sub">Pool Cleaning · Sarasota</div>
-        <div class="overlay-title">On-Time Pool Service — Est. 2004. A+ BBB rated. Weekly maintenance, repairs &amp; full pool renovations.</div>
-        <a class="overlay-btn" href="https://ontimepoolservice.com/" target="_blank" rel="noopener">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
-        </a>
-      </div>
-    </div>
-
-    <!-- 7. Pressure Washing Clearwater -->
-    <div class="portfolio-card">
-      <div class="card-visual">
-        <div class="card-bg bg-pressure"></div>
-        <div class="card-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
-        <div class="card-title-block">
-          <div class="card-type">Pressure Washing</div>
-          <div class="card-name">Clearwater Soft Wash Pros</div>
-          <div class="card-city">Clearwater, FL</div>
-        </div>
-      </div>
-      <div class="card-overlay">
-        <div class="overlay-sub">Pressure Washing · Clearwater</div>
-        <div class="overlay-title">Clearwater Soft Wash Pros — Licensed, insured, family-owned. 5-star rated with best price guarantee.</div>
-        <a class="overlay-btn" href="https://clearwatersoftwashpros.com/" target="_blank" rel="noopener">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
-        </a>
-      </div>
-    </div>
-
-    <!-- 8. Roofing Jacksonville alt -->
-    <div class="portfolio-card">
-      <div class="card-visual">
-        <div class="card-bg" style="background: linear-gradient(135deg, #2a0a1f, #4a1535, #3d1028);"></div>
-        <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
-        <div class="card-title-block">
-          <div class="card-type">Roofing Contractor</div>
-          <div class="card-name">Avenue Roofing</div>
-          <div class="card-city">Jacksonville, FL</div>
-        </div>
-      </div>
-      <div class="card-overlay">
-        <div class="overlay-sub">Roofing · Jacksonville</div>
-        <div class="overlay-title">Avenue Roofing — Directorii Pro, Top 1% Florida contractors. $250K Elite Status customer guarantee.</div>
-        <a class="overlay-btn" href="https://avenueroofing.com/" target="_blank" rel="noopener">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
-        </a>
-      </div>
-    </div>
-
-    <!-- 9. HVAC Del-Air -->
-    <div class="portfolio-card">
-      <div class="card-visual">
-        <div class="card-bg" style="background: linear-gradient(135deg, #001a2c, #002a40, #004060);"></div>
-        <div class="card-icon"><i class="fa-solid fa-wind"></i></div>
-        <div class="card-title-block">
-          <div class="card-type">HVAC · Plumbing · Electric</div>
-          <div class="card-name">Del-Air Services</div>
-          <div class="card-city">Orlando, FL</div>
-        </div>
-      </div>
-      <div class="card-overlay">
-        <div class="overlay-sub">HVAC · Orlando</div>
-        <div class="overlay-title">Del-Air — Central Florida's HVAC leader since 1983. 24/7 service, full residential &amp; commercial coverage.</div>
-        <a class="overlay-btn" href="https://www.delair.com/orlando-north/hvac/" target="_blank" rel="noopener">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site
-        </a>
-      </div>
-    </div>
-
+  <div class="filter-tabs" id="filterTabs">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="hvac">HVAC</button>
+    <button class="filter-btn" data-filter="roofing">Roofing</button>
+    <button class="filter-btn" data-filter="electric">Electrical</button>
+    <button class="filter-btn" data-filter="pest">Pest Control</button>
+    <button class="filter-btn" data-filter="lawn">Lawn & Pool</button>
   </div>
+
+  <div class="portfolio-grid" id="portfolioGrid"></div>
 </div>
 
-<!-- ABOUT -->
 <section id="about" class="about-section">
   <div class="about-left">
     <div class="section-tag" style="margin-bottom:16px;">About Me</div>
     <h3>Building websites that work as hard as your business does</h3>
     <p>I specialize in web design and development for service-based businesses — the plumbers, roofers, electricians, and landscapers who need a site that ranks on Google, loads fast, and turns visitors into phone calls.</p>
     <p>Every project is hand-coded for performance, mobile-first, and crafted with the local SEO strategy baked in from day one. No templates. No bloat.</p>
-    <div style="margin-top:24px;">
-      <span class="tag">Local SEO</span>&nbsp;
-      <span class="tag">Mobile-First</span>&nbsp;
-      <span class="tag">Conversion Design</span>
-    </div>
+    <div style="margin-top:24px;"><span class="tag">Local SEO</span>&nbsp;<span class="tag">Mobile-First</span>&nbsp;<span class="tag">Conversion Design</span></div>
   </div>
   <div class="about-right">
-    <div class="section-tag" style="margin-bottom:16px;">Skills &amp; Services</div>
+    <div class="section-tag" style="margin-bottom:16px;">Skills & Services</div>
     <div class="skills-grid">
-      <div class="skill-item">
-        <i class="fa-solid fa-code"></i>
-        <h4>Web Development</h4>
-        <p>Clean, fast HTML/CSS/JS with no unnecessary frameworks</p>
-      </div>
-      <div class="skill-item">
-        <i class="fa-solid fa-magnifying-glass-location"></i>
-        <h4>Local SEO</h4>
-        <p>Rank on page 1 for your city and service keywords</p>
-      </div>
-      <div class="skill-item">
-        <i class="fa-solid fa-mobile-screen"></i>
-        <h4>Responsive Design</h4>
-        <p>Pixel-perfect layouts on every screen size</p>
-      </div>
-      <div class="skill-item">
-        <i class="fa-solid fa-gauge-high"></i>
-        <h4>Performance</h4>
-        <p>Sub-2s load times, 95+ Google PageSpeed scores</p>
-      </div>
+      <div class="skill-item"><i class="fa-solid fa-code"></i><h4>Web Development</h4><p>Clean, fast HTML/CSS/JS with no unnecessary frameworks</p></div>
+      <div class="skill-item"><i class="fa-solid fa-magnifying-glass-location"></i><h4>Local SEO</h4><p>Rank on page 1 for your city and service keywords</p></div>
+      <div class="skill-item"><i class="fa-solid fa-mobile-screen"></i><h4>Responsive Design</h4><p>Pixel-perfect layouts on every screen size</p></div>
+      <div class="skill-item"><i class="fa-solid fa-gauge-high"></i><h4>Performance</h4><p>Sub-2s load times, 95+ Google PageSpeed scores</p></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<section id="pricing" class="pricing-section">
+  <div class="section-tag" style="justify-content:center; margin-bottom:16px;">Investment</div>
+  <h2 style="text-align:center; font-weight:200;">Transparent pricing.<br>No surprises.</h2>
+  <div class="pricing-grid">
+    <div class="pricing-card"><div class="pricing-popular">Starter</div><div class="pricing-price"><sup>$</sup>1,200</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Custom design (no templates)</li><li><i class="fa-solid fa-check"></i>Mobile-first responsive</li><li><i class="fa-solid fa-check"></i>Basic on-page SEO</li><li><i class="fa-solid fa-check"></i>30-day support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
+    <div class="pricing-card featured"><div class="pricing-popular">Most Popular</div><div class="pricing-price"><sup>$</sup>2,800</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Everything in Starter</li><li><i class="fa-solid fa-check"></i>Local SEO optimization</li><li><i class="fa-solid fa-check"></i>Lead capture landing page</li><li><i class="fa-solid fa-check"></i>Google Business Profile</li><li><i class="fa-solid fa-check"></i>90-day support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
+    <div class="pricing-card"><div class="pricing-popular">Authority</div><div class="pricing-price"><sup>$</sup>5,500</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Everything in Growth</li><li><i class="fa-solid fa-check"></i>Ongoing SEO content</li><li><i class="fa-solid fa-check"></i>Monthly reports</li><li><i class="fa-solid fa-check"></i>Priority support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
+  </div>
+</section>
+
+<section id="faq" class="faq-section">
+  <div class="section-tag" style="justify-content:center; margin-bottom:16px;">Got questions?</div>
+  <h2 style="text-align:center; font-weight:200;">Frequently asked questions</h2>
+  <div class="faq-grid">
+    <div class="faq-item"><div class="faq-question"><span>How long does a typical website take?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Most projects take 3–5 weeks from start to finish, including revisions.</div></div>
+    <div class="faq-item"><div class="faq-question"><span>Do you offer payment plans?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Yes. 50% deposit upfront, 25% at design approval, 25% at launch.</div></div>
+    <div class="faq-item"><div class="faq-question"><span>Will my website be mobile-friendly?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Absolutely. Every site is fully responsive and passes Google's mobile test.</div></div>
+    <div class="faq-item"><div class="faq-question"><span>Do you provide ongoing support?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Yes, each package includes 30–90 days of support. Maintenance plans available.</div></div>
+  </div>
+</section>
+
 <section id="contact" class="contact-section">
   <div class="section-tag" style="justify-content:center; margin-bottom:16px;">Get In Touch</div>
   <h2>Let's build something great</h2>
   <p>Ready to elevate your service business online? I'd love to hear about your project.</p>
   <div class="contact-links">
-    <a href="mailto:hello@alexmorgan.design" class="contact-link"><i class="fa-solid fa-envelope"></i> Email Me</a>
-    <a href="tel:+17275550100" class="contact-link"><i class="fa-solid fa-phone"></i> Call Me</a>
-    <a href="#" class="contact-link"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+    <a href="mailto:josh@joshwells.dev" class="contact-link"><i class="fa-solid fa-envelope"></i> Email Josh</a>
+    <a href="tel:+15550000000" class="contact-link"><i class="fa-solid fa-phone"></i> Call Now</a>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <span>© 2026 Alex Morgan — Web Design</span>
+  <span>© 2026 Josh Wells — Web Design & Development</span>
   <span>St. Petersburg, Florida</span>
 </footer>
 
 <script>
-  const cards = document.querySelectorAll('.portfolio-card');
+  // Stars generation
+  const starsDiv = document.getElementById('stars');
+  for(let i=0;i<120;i++){let s=document.createElement('div');s.className='star';let size=0.8+Math.random()*2.2;s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;--d:${3+Math.random()*6}s;--dl:${Math.random()*8}s;--op:${0.2+Math.random()*0.7}`;starsDiv.appendChild(s);}
 
-  function revealOnScroll() {
-    const winH = window.innerHeight;
-    cards.forEach((card, i) => {
-      const rect = card.getBoundingClientRect();
-      if (rect.top < winH - 60) {
-        setTimeout(() => card.classList.add('visible'), i * 90);
-      }
+  // Navbar shrink
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll',()=>{if(window.scrollY>50) nav.classList.add('shrink'); else nav.classList.remove('shrink');});
+  const backBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll',()=>{if(window.scrollY>400) backBtn.classList.add('show'); else backBtn.classList.remove('show');});
+  backBtn.onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('overlayBlur');
+  const closeMenuBtn = document.getElementById('closeMenuBtn');
+  function openMenu(){ mobileMenu.classList.add('open'); overlay.classList.add('active'); menuToggle.classList.add('active'); document.body.style.overflow='hidden'; }
+  function closeMenuFunc(){ mobileMenu.classList.remove('open'); overlay.classList.remove('active'); menuToggle.classList.remove('active'); document.body.style.overflow=''; }
+  menuToggle.onclick = openMenu;
+  closeMenuBtn.onclick = closeMenuFunc;
+  overlay.onclick = closeMenuFunc;
+  document.querySelectorAll('.mobile-nav-link[href^="#"]').forEach(l=>l.addEventListener('click',closeMenuFunc));
+  const subToggle = document.getElementById('mobileSubToggle');
+  const subMenu = document.getElementById('mobileSubmenu');
+  let subOpen=false;
+  subToggle.onclick = (e)=>{ e.stopPropagation(); subOpen=!subOpen; if(subOpen){ subMenu.classList.add('open-sub'); subToggle.textContent='−'; } else { subMenu.classList.remove('open-sub'); subToggle.textContent='+'; }};
+  document.querySelectorAll('.mobile-submenu a').forEach(a=>a.addEventListener('click',closeMenuFunc));
+
+  // FAQ
+  document.querySelectorAll('.faq-item').forEach(item=>{ item.querySelector('.faq-question').addEventListener('click',()=>{ const active=item.classList.contains('active'); document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active')); if(!active) item.classList.add('active'); }); });
+
+  // Portfolio Data
+  const portfolioData = [
+    { title: "Ferran Services", category: "hvac", type: "HVAC Repair", city: "Orlando, FL", desc: "Trusted since 1910. Top-rated AC repair & HVAC contractor in Central Florida.", link: "https://ferran-services.com/", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=450&fit=crop" },
+    { title: "NEXGEN Roofing", category: "roofing", type: "Roofing Company", city: "Jacksonville, FL", desc: "Owens Corning Platinum Preferred, top 1% nationwide. 1,500+ roofs installed.", link: "https://www.nexgenfl.com/", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=450&fit=crop" },
+    { title: "Suncoast Electric Inc.", category: "electric", type: "Electrical Services", city: "St. Petersburg, FL", desc: "Family-owned electrical contractor since 1970. 24/7 emergency service.", link: "https://suncoastelectricinc.com/", image: "https://images.unsplash.com/photo-1504328345606-18bbc8c58d76?w=600&h=450&fit=crop" },
+    { title: "Native Pest Management", category: "pest", type: "Pest Control", city: "Fort Lauderdale, FL", desc: "2,000+ five-star reviews. Pet-friendly, eco-safe pest control.", link: "https://www.nativepestmanagement.com/fort-lauderdale-fl-pest-control/", image: "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=600&h=450&fit=crop" },
+    { title: "Blue Collar Q", category: "lawn", type: "Lawn Care", city: "Cape Coral, FL", desc: "Cape Coral's top-rated landscaping company. 3D renders, hardscaping & full maintenance.", link: "https://bluecollarq.net/", image: "https://images.unsplash.com/photo-1558904541-efa843c96f01?w=600&h=450&fit=crop" },
+    { title: "On-Time Pool Service", category: "lawn", type: "Pool Cleaning", city: "Sarasota, FL", desc: "A+ BBB rated. Weekly maintenance, repairs & full pool renovations.", link: "https://ontimepoolservice.com/", image: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=600&h=450&fit=crop" },
+    { title: "Clearwater Soft Wash Pros", category: "lawn", type: "Pressure Washing", city: "Clearwater, FL", desc: "5-star rated, family-owned. Best price guarantee.", link: "https://clearwatersoftwashpros.com/", image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=450&fit=crop" },
+    { title: "Avenue Roofing", category: "roofing", type: "Roofing Contractor", city: "Jacksonville, FL", desc: "Top 1% Florida contractors. $250K Elite Status customer guarantee.", link: "https://avenueroofing.com/", image: "https://images.unsplash.com/photo-1632778149955-e80f8ceca2b8?w=600&h=450&fit=crop" },
+    { title: "Del-Air Services", category: "hvac", type: "HVAC · Plumbing", city: "Orlando, FL", desc: "Central Florida's HVAC leader since 1983. 24/7 residential & commercial service.", link: "https://www.delair.com/orlando-north/hvac/", image: "https://images.unsplash.com/photo-1621905251189-08b45d6a26f7?w=600&h=450&fit=crop" }
+  ];
+
+  // Dynamic Headlines per tab with fade-up effect
+  const headlineMap = {
+    all: { eyebrow: "Selected Work", headline: "Florida Service<br>Business Websites", subhead: "Real, top-ranking service companies across Florida — built to dominate local search and convert visitors into customers." },
+    hvac: { eyebrow: "Climate Control", headline: "HVAC & Mechanical<br>Service Demos", subhead: "High-converting websites for heating & cooling companies. Emergency booking, service plans, and more." },
+    roofing: { eyebrow: "Above & Beyond", headline: "Roofing Contractor<br>Portfolio Previews", subhead: "Showcase roofing projects, estimate requests, and warranty information with modern demos." },
+    electric: { eyebrow: "Power Up", headline: "Electrical Services<br>Live Previews", subhead: "Professional electrician websites with 24/7 emergency callouts and service area mapping." },
+    pest: { eyebrow: "Protect & Defend", headline: "Pest Control<br>Website Demos", subhead: "Trust-building designs for pest management companies. Eco-friendly and pet-safe solutions." },
+    lawn: { eyebrow: "Green Thumb", headline: "Lawn & Pool<br>Service Showcases", subhead: "Seasonal service promotions, recurring billing, and local SEO for outdoor services." }
+  };
+
+  function updateHeadlineWithFade(tabId) {
+    const h = headlineMap[tabId];
+    if(h){
+      const eyebrow = document.getElementById('dynamicEyebrow');
+      const headline = document.getElementById('dynamicHeadline');
+      const subhead = document.getElementById('dynamicSubhead');
+      eyebrow.classList.remove('fade-up-headline');
+      headline.classList.remove('fade-up-headline');
+      subhead.classList.remove('fade-up-headline');
+      void eyebrow.offsetWidth;
+      eyebrow.innerHTML = h.eyebrow;
+      headline.innerHTML = h.headline;
+      subhead.innerHTML = h.subhead;
+      eyebrow.classList.add('fade-up-headline');
+      headline.classList.add('fade-up-headline');
+      subhead.classList.add('fade-up-headline');
+    }
+  }
+
+  // Staggered reveal for cards
+  function applyStaggeredReveal(container) {
+    const cards = container.querySelectorAll('.portfolio-card');
+    cards.forEach((card, idx) => {
+      card.classList.remove('visible');
+      setTimeout(() => {
+        card.classList.add('visible');
+      }, idx * 80);
     });
   }
 
-  window.addEventListener('scroll', revealOnScroll);
-  window.addEventListener('load', () => {
-    setTimeout(revealOnScroll, 100);
-  });
-  revealOnScroll();
-</script>
+  function renderCards(filter = "all") {
+    const filtered = filter === "all" ? portfolioData : portfolioData.filter(item => item.category === filter);
+    const grid = document.getElementById('portfolioGrid');
+    grid.innerHTML = filtered.map((item) => `
+      <div class="portfolio-card" onclick="window.open('${item.link}', '_blank')">
+        <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy">
+        <div class="card-info">
+          <div class="card-type">${item.type}</div>
+          <div class="card-title">${item.title}</div>
+          <div class="card-city"><i class="fa-solid fa-location-dot"></i> ${item.city}</div>
+          <div class="card-desc">${item.desc}</div>
+          <div class="card-link">View Live Site <i class="fa-solid fa-arrow-right"></i></div>
+        </div>
+      </div>
+    `).join('');
+    applyStaggeredReveal(grid);
+  }
 
+  // Filter functionality with staggered reveal and headline fade
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filterValue = btn.getAttribute('data-filter');
+      renderCards(filterValue);
+      updateHeadlineWithFade(filterValue);
+    });
+  });
+
+  renderCards('all');
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const id = this.getAttribute('href');
+      if(id === "#") return;
+      const target = document.querySelector(id);
+      if(target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+</script>
 </body>
 </html>
