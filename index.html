@@ -11,6 +11,7 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* Default Dark Mode Variables */
   :root {
     --c-bg: #0a0a0a;
     --c-surface: #111111;
@@ -22,8 +23,32 @@
     --c-muted: rgba(240,237,232,0.45);
     --c-tag: rgba(212,175,106,0.12);
     --c-tag-text: #d4af6a;
+    --c-nav-bg: rgba(10,10,10,0.92);
+    --c-nav-border: rgba(255,255,255,0.07);
+    --c-overlay: rgba(0,0,0,0.85);
+    --c-shadow: rgba(0,0,0,0.3);
+    --c-card-shadow: rgba(0,0,0,0.3);
     --radius: 12px;
     --font: 'Montserrat', sans-serif;
+  }
+
+  /* Light Mode Variables - applied when .light-mode class is on body */
+  body.light-mode {
+    --c-bg: #f5f5f0;
+    --c-surface: #ffffff;
+    --c-card: #ffffff;
+    --c-border: rgba(0,0,0,0.1);
+    --c-accent: #c9a03d;
+    --c-accent2: #7f9e95;
+    --c-text: #1a1a1a;
+    --c-muted: rgba(0,0,0,0.55);
+    --c-tag: rgba(201,160,61,0.12);
+    --c-tag-text: #c9a03d;
+    --c-nav-bg: rgba(245,245,240,0.95);
+    --c-nav-border: rgba(0,0,0,0.08);
+    --c-overlay: rgba(255,255,255,0.92);
+    --c-shadow: rgba(0,0,0,0.08);
+    --c-card-shadow: rgba(0,0,0,0.08);
   }
 
   html { scroll-behavior: smooth; }
@@ -34,12 +59,14 @@
     font-weight: 300;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  /* Star Particles */
+  /* Star Particles - hidden in light mode */
   #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
   .star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--d) var(--dl) infinite; opacity: 0; }
   @keyframes twinkle { 0%,100%{opacity:0;transform:scale(.5)} 50%{opacity:var(--op);transform:scale(1)} }
+  body.light-mode .star { display: none; }
 
   /* NAV with shrink effect + submenu */
   nav {
@@ -47,17 +74,17 @@
     justify-content: space-between;
     align-items: center;
     padding: 28px 60px;
-    border-bottom: 1px solid var(--c-border);
+    border-bottom: 1px solid var(--c-nav-border);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(10,10,10,0.92);
+    background: var(--c-nav-bg);
     backdrop-filter: blur(12px);
     z-index: 1000;
     transition: all 0.3s ease;
   }
-  nav.shrink { padding: 16px 60px; background: rgba(10,10,10,0.98); }
+  nav.shrink { padding: 16px 60px; }
   .nav-logo {
     font-size: 15px;
     font-weight: 500;
@@ -79,15 +106,15 @@
     text-decoration: none;
     transition: color 0.3s;
   }
-  .nav-links-desktop a:hover { color: var(--c-text); }
+  .nav-links-desktop a:hover { color: var(--c-accent); }
   
-  /* Submenu hover slide-up effect */
+  /* Submenu hover slide-up */
   .submenu-item { position: relative; }
   .submenu {
     position: absolute;
     top: 32px;
     left: -20px;
-    background: rgba(10,10,10,0.96);
+    background: var(--c-surface);
     backdrop-filter: blur(12px);
     border: 1px solid var(--c-border);
     border-radius: 12px;
@@ -127,9 +154,26 @@
     text-transform: uppercase;
     transition: 0.2s;
   }
-  .nav-cta:hover { background: #fff; transform: translateY(-1px); }
+  .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
-  /* Mobile Menu Button (animated to X) */
+  /* Dark/Light Toggle Switch */
+  .theme-toggle {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 40px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--c-accent);
+    transition: 0.2s;
+  }
+  .theme-toggle:hover { transform: scale(1.05); border-color: var(--c-accent); }
+
+  /* Mobile Menu Button */
   .menu-toggle {
     display: none;
     background: none;
@@ -164,11 +208,11 @@
     width: 75%;
     max-width: 320px;
     height: 100vh;
-    background: rgba(10,10,10,0.98);
+    background: var(--c-surface);
     backdrop-filter: blur(20px);
     z-index: 1005;
     padding: 100px 28px 40px;
-    box-shadow: -8px 0 32px rgba(0,0,0,0.5);
+    box-shadow: -8px 0 32px var(--c-shadow);
     transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     display: flex;
     flex-direction: column;
@@ -251,7 +295,7 @@
   .overlay-blur {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.5);
     backdrop-filter: blur(3px);
     z-index: 1004;
     opacity: 0;
@@ -265,7 +309,7 @@
     position: fixed; bottom: 30px; right: 30px; width: 46px; height: 46px;
     background: var(--c-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center;
     z-index: 99; opacity: 0; visibility: hidden; transition: 0.3s; cursor: pointer; border: none;
-    color: #0a0a0a; font-size: 1.3rem;
+    color: var(--c-bg); font-size: 1.3rem;
   }
   .back-to-top.show { opacity: 1; visibility: visible; }
 
@@ -288,44 +332,22 @@
     gap: 12px;
   }
   .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--c-accent); }
-  .hero h1 {
-    font-size: clamp(36px, 5vw, 62px);
-    font-weight: 200;
-    line-height: 1.15;
-    margin-bottom: 24px;
-  }
+  .hero h1 { font-size: clamp(36px, 5vw, 62px); font-weight: 200; line-height: 1.15; margin-bottom: 24px; }
   .hero h1 em { font-style: normal; font-weight: 500; color: var(--c-accent); }
-  .hero p {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.8;
-    color: var(--c-muted);
-    max-width: 520px;
-    margin-bottom: 40px;
-  }
+  .hero p { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--c-muted); max-width: 520px; margin-bottom: 40px; }
   .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid var(--c-accent);
-    color: var(--c-accent);
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 14px 28px;
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid var(--c-accent); color: var(--c-accent);
+    font-size: 11px; font-weight: 400; letter-spacing: 0.2em;
+    text-transform: uppercase; text-decoration: none; padding: 14px 28px;
     transition: 0.3s;
   }
   .hero-cta:hover { background: var(--c-accent); color: var(--c-bg); }
 
   /* Stats Bar */
   .stats-bar {
-    display: flex;
-    gap: 48px;
-    padding: 36px 60px;
-    border-top: 1px solid var(--c-border);
-    border-bottom: 1px solid var(--c-border);
+    display: flex; gap: 48px; padding: 36px 60px;
+    border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border);
     margin-bottom: 80px;
   }
   .stat { text-align: center; }
@@ -336,145 +358,61 @@
   /* Portfolio Section */
   .section-header { padding: 0 60px; margin-bottom: 48px; }
   .section-tag {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--c-accent);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--c-accent); margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
   }
   .section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--c-accent); }
   .section-header h2 { font-size: clamp(22px, 3vw, 34px); font-weight: 200; }
   .section-header p { font-size: 14px; color: var(--c-muted); margin-top: 12px; max-width: 480px; }
 
   /* Dynamic Headline fade-up */
-  .fade-up-headline {
-    animation: headlineFadeUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
-  }
-  @keyframes headlineFadeUp {
-    0% { opacity: 0; transform: translateY(16px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
+  .fade-up-headline { animation: headlineFadeUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards; }
+  @keyframes headlineFadeUp { 0% { opacity: 0; transform: translateY(16px); } 100% { opacity: 1; transform: translateY(0); } }
 
   /* Filter Tabs */
   .filter-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 0 60px 24px;
-    border-bottom: 1px solid var(--c-border);
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 0 60px 24px; border-bottom: 1px solid var(--c-border);
     margin-bottom: 32px;
   }
   .filter-btn {
-    background: transparent;
-    border: none;
-    padding: 8px 20px;
-    font-family: var(--font);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--c-muted);
-    cursor: pointer;
-    transition: 0.2s;
-    border-radius: 30px;
+    background: transparent; border: none; padding: 8px 20px;
+    font-family: var(--font); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--c-muted); cursor: pointer; transition: 0.2s; border-radius: 30px;
   }
   .filter-btn:hover { color: var(--c-accent); }
   .filter-btn.active { background: var(--c-accent); color: var(--c-bg); }
 
-  /* Portfolio Grid - with spacing between cards */
+  /* Portfolio Grid */
   .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    padding: 0 60px;
-    margin-bottom: 60px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px; padding: 0 60px; margin-bottom: 60px;
   }
-  @media (max-width: 1000px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
-  @media (max-width: 700px) { .portfolio-grid { grid-template-columns: 1fr; padding: 0 24px; gap: 24px; } }
+  @media (max-width: 1000px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px) { .portfolio-grid { grid-template-columns: 1fr; padding: 0 24px; } }
 
   .portfolio-card {
-    background: var(--c-card);
-    border-radius: 16px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: 1px solid var(--c-border);
-    opacity: 0;
-    transform: translateY(20px);
+    background: var(--c-card); border-radius: 16px; overflow: hidden;
+    cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--c-border); opacity: 0; transform: translateY(20px);
   }
-  .portfolio-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.3); border-color: var(--c-accent); }
-  
-  .card-image {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s;
-  }
+  .portfolio-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px var(--c-card-shadow); border-color: var(--c-accent); }
+  .card-image { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.4s; }
   .portfolio-card:hover .card-image { transform: scale(1.03); }
-  
-  .card-info {
-    padding: 18px 20px 22px;
-    background: var(--c-card);
-  }
-  .card-type {
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--c-accent);
-    margin-bottom: 8px;
-  }
-  .card-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: var(--c-text);
-  }
-  .card-city {
-    font-size: 11px;
-    color: var(--c-muted);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .card-desc {
-    font-size: 12px;
-    color: var(--c-muted);
-    line-height: 1.5;
-    margin-bottom: 16px;
-  }
-  .card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--c-accent);
-    text-decoration: none;
-    transition: gap 0.2s;
-  }
+  .card-info { padding: 18px 20px 22px; background: var(--c-card); }
+  .card-type { font-size: 9px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 8px; }
+  .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--c-text); }
+  .card-city { font-size: 11px; color: var(--c-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .card-desc { font-size: 12px; color: var(--c-muted); line-height: 1.5; margin-bottom: 16px; }
+  .card-link { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-accent); text-decoration: none; transition: gap 0.2s; }
   .card-link:hover { gap: 12px; }
 
   /* About Section */
   .about-section {
-    padding: 60px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    border-top: 1px solid var(--c-border);
-    margin-top: 20px;
+    padding: 60px; display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; border-top: 1px solid var(--c-border); margin-top: 20px;
   }
   @media (max-width: 780px) { .about-section { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; } }
   .about-left h3 { font-size: 26px; font-weight: 200; line-height: 1.4; margin-bottom: 20px; }
@@ -546,8 +484,13 @@
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Let's Talk</a>
-  <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+  <div style="display: flex; gap: 12px; align-items: center;">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+      <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </button>
+    <a href="#contact" class="nav-cta">Let's Talk</a>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+  </div>
 </nav>
 
 <div class="overlay-blur" id="overlayBlur"></div>
@@ -674,6 +617,36 @@
   window.addEventListener('scroll',()=>{if(window.scrollY>400) backBtn.classList.add('show'); else backBtn.classList.remove('show');});
   backBtn.onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
 
+  // Dark/Light Mode Toggle - FIXED
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  
+  function setTheme(isDark) {
+    if(isDark) {
+      document.body.classList.remove('light-mode');
+      themeIcon.className = 'fa-solid fa-moon';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.add('light-mode');
+      themeIcon.className = 'fa-solid fa-sun';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+  
+  // Load saved theme on page load
+  const savedTheme = localStorage.getItem('theme');
+  if(savedTheme === 'light') {
+    setTheme(false);
+  } else {
+    setTheme(true);
+  }
+  
+  // Toggle when button is clicked
+  themeToggle.addEventListener('click', () => {
+    const isCurrentlyDark = !document.body.classList.contains('light-mode');
+    setTheme(!isCurrentlyDark);
+  });
+
   // Mobile menu
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobileMenu');
@@ -696,25 +669,24 @@
 
   // Portfolio Data
   const portfolioData = [
-    { title: "Ferran Services", category: "hvac", type: "HVAC Repair", city: "Orlando, FL", desc: "Trusted since 1910. Top-rated AC repair & HVAC contractor in Central Florida.", link: "https://ferran-services.com/", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=450&fit=crop" },
-    { title: "NEXGEN Roofing", category: "roofing", type: "Roofing Company", city: "Jacksonville, FL", desc: "Owens Corning Platinum Preferred, top 1% nationwide. 1,500+ roofs installed.", link: "https://www.nexgenfl.com/", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=450&fit=crop" },
-    { title: "Suncoast Electric Inc.", category: "electric", type: "Electrical Services", city: "St. Petersburg, FL", desc: "Family-owned electrical contractor since 1970. 24/7 emergency service.", link: "https://suncoastelectricinc.com/", image: "https://images.unsplash.com/photo-1504328345606-18bbc8c58d76?w=600&h=450&fit=crop" },
-    { title: "Native Pest Management", category: "pest", type: "Pest Control", city: "Fort Lauderdale, FL", desc: "2,000+ five-star reviews. Pet-friendly, eco-safe pest control.", link: "https://www.nativepestmanagement.com/fort-lauderdale-fl-pest-control/", image: "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=600&h=450&fit=crop" },
-    { title: "Blue Collar Q", category: "lawn", type: "Lawn Care", city: "Cape Coral, FL", desc: "Cape Coral's top-rated landscaping company. 3D renders, hardscaping & full maintenance.", link: "https://bluecollarq.net/", image: "https://images.unsplash.com/photo-1558904541-efa843c96f01?w=600&h=450&fit=crop" },
-    { title: "On-Time Pool Service", category: "lawn", type: "Pool Cleaning", city: "Sarasota, FL", desc: "A+ BBB rated. Weekly maintenance, repairs & full pool renovations.", link: "https://ontimepoolservice.com/", image: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=600&h=450&fit=crop" },
-    { title: "Clearwater Soft Wash Pros", category: "lawn", type: "Pressure Washing", city: "Clearwater, FL", desc: "5-star rated, family-owned. Best price guarantee.", link: "https://clearwatersoftwashpros.com/", image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=450&fit=crop" },
-    { title: "Avenue Roofing", category: "roofing", type: "Roofing Contractor", city: "Jacksonville, FL", desc: "Top 1% Florida contractors. $250K Elite Status customer guarantee.", link: "https://avenueroofing.com/", image: "https://images.unsplash.com/photo-1632778149955-e80f8ceca2b8?w=600&h=450&fit=crop" },
-    { title: "Del-Air Services", category: "hvac", type: "HVAC · Plumbing", city: "Orlando, FL", desc: "Central Florida's HVAC leader since 1983. 24/7 residential & commercial service.", link: "https://www.delair.com/orlando-north/hvac/", image: "https://images.unsplash.com/photo-1621905251189-08b45d6a26f7?w=600&h=450&fit=crop" }
+    { title: "Ferran Services", category: "hvac", type: "HVAC Repair", city: "Orlando, FL", desc: "Trusted since 1910. Top-rated AC repair & HVAC contractor.", link: "https://ferran-services.com/", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=450&fit=crop" },
+    { title: "NEXGEN Roofing", category: "roofing", type: "Roofing Company", city: "Jacksonville, FL", desc: "Owens Corning Platinum Preferred. 1,500+ roofs installed.", link: "https://www.nexgenfl.com/", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=450&fit=crop" },
+    { title: "Suncoast Electric Inc.", category: "electric", type: "Electrical Services", city: "St. Petersburg, FL", desc: "Family-owned electrical contractor since 1970.", link: "https://suncoastelectricinc.com/", image: "https://images.unsplash.com/photo-1504328345606-18bbc8c58d76?w=600&h=450&fit=crop" },
+    { title: "Native Pest Management", category: "pest", type: "Pest Control", city: "Fort Lauderdale, FL", desc: "2,000+ five-star reviews. Pet-friendly, eco-safe.", link: "https://www.nativepestmanagement.com/fort-lauderdale-fl-pest-control/", image: "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=600&h=450&fit=crop" },
+    { title: "Blue Collar Q", category: "lawn", type: "Lawn Care", city: "Cape Coral, FL", desc: "Cape Coral's top-rated landscaping company.", link: "https://bluecollarq.net/", image: "https://images.unsplash.com/photo-1558904541-efa843c96f01?w=600&h=450&fit=crop" },
+    { title: "On-Time Pool Service", category: "lawn", type: "Pool Cleaning", city: "Sarasota, FL", desc: "A+ BBB rated. Weekly maintenance & repairs.", link: "https://ontimepoolservice.com/", image: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=600&h=450&fit=crop" },
+    { title: "Clearwater Soft Wash Pros", category: "lawn", type: "Pressure Washing", city: "Clearwater, FL", desc: "5-star rated, family-owned.", link: "https://clearwatersoftwashpros.com/", image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=450&fit=crop" },
+    { title: "Avenue Roofing", category: "roofing", type: "Roofing Contractor", city: "Jacksonville, FL", desc: "Top 1% Florida contractors.", link: "https://avenueroofing.com/", image: "https://images.unsplash.com/photo-1632778149955-e80f8ceca2b8?w=600&h=450&fit=crop" },
+    { title: "Del-Air Services", category: "hvac", type: "HVAC · Plumbing", city: "Orlando, FL", desc: "Central Florida's HVAC leader since 1983.", link: "https://www.delair.com/orlando-north/hvac/", image: "https://images.unsplash.com/photo-1621905251189-08b45d6a26f7?w=600&h=450&fit=crop" }
   ];
 
-  // Dynamic Headlines per tab with fade-up effect
   const headlineMap = {
-    all: { eyebrow: "Selected Work", headline: "Florida Service<br>Business Websites", subhead: "Real, top-ranking service companies across Florida — built to dominate local search and convert visitors into customers." },
-    hvac: { eyebrow: "Climate Control", headline: "HVAC & Mechanical<br>Service Demos", subhead: "High-converting websites for heating & cooling companies. Emergency booking, service plans, and more." },
-    roofing: { eyebrow: "Above & Beyond", headline: "Roofing Contractor<br>Portfolio Previews", subhead: "Showcase roofing projects, estimate requests, and warranty information with modern demos." },
-    electric: { eyebrow: "Power Up", headline: "Electrical Services<br>Live Previews", subhead: "Professional electrician websites with 24/7 emergency callouts and service area mapping." },
-    pest: { eyebrow: "Protect & Defend", headline: "Pest Control<br>Website Demos", subhead: "Trust-building designs for pest management companies. Eco-friendly and pet-safe solutions." },
-    lawn: { eyebrow: "Green Thumb", headline: "Lawn & Pool<br>Service Showcases", subhead: "Seasonal service promotions, recurring billing, and local SEO for outdoor services." }
+    all: { eyebrow: "Selected Work", headline: "Florida Service<br>Business Websites", subhead: "Real, top-ranking service companies across Florida — built to dominate local search." },
+    hvac: { eyebrow: "Climate Control", headline: "HVAC & Mechanical<br>Service Demos", subhead: "High-converting websites for heating & cooling companies." },
+    roofing: { eyebrow: "Above & Beyond", headline: "Roofing Contractor<br>Portfolio Previews", subhead: "Showcase roofing projects, estimate requests, and warranty information." },
+    electric: { eyebrow: "Power Up", headline: "Electrical Services<br>Live Previews", subhead: "Professional electrician websites with 24/7 emergency callouts." },
+    pest: { eyebrow: "Protect & Defend", headline: "Pest Control<br>Website Demos", subhead: "Trust-building designs for pest management companies." },
+    lawn: { eyebrow: "Green Thumb", headline: "Lawn & Pool<br>Service Showcases", subhead: "Seasonal service promotions and local SEO for outdoor services." }
   };
 
   function updateHeadlineWithFade(tabId) {
@@ -736,14 +708,11 @@
     }
   }
 
-  // Staggered reveal for cards
   function applyStaggeredReveal(container) {
     const cards = container.querySelectorAll('.portfolio-card');
     cards.forEach((card, idx) => {
       card.classList.remove('visible');
-      setTimeout(() => {
-        card.classList.add('visible');
-      }, idx * 80);
+      setTimeout(() => card.classList.add('visible'), idx * 80);
     });
   }
 
@@ -765,7 +734,6 @@
     applyStaggeredReveal(grid);
   }
 
-  // Filter functionality with staggered reveal and headline fade
   const filterBtns = document.querySelectorAll('.filter-btn');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
