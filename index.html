@@ -86,7 +86,7 @@
   }
   nav.shrink { padding: 16px 60px; }
   .nav-logo {
-    font-size: 15px;
+    font-size: 22px;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -98,14 +98,15 @@
   .nav-links-desktop { list-style: none; display: flex; gap: 36px; align-items: center; }
   .nav-links-desktop li { position: relative; }
   .nav-links-desktop a {
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    font-size: 14px;
+    /* font-weight: 400; */
+    letter-spacing: 0.15rem;
+    /* text-transform: uppercase; */
     color: var(--c-muted);
     text-decoration: none;
     transition: color 0.3s;
-  }
+    color: #b1b1b1;
+}
   .nav-links-desktop a:hover { color: var(--c-accent); }
   
   /* Submenu hover slide-up */
@@ -327,7 +328,7 @@
     align-items: center;
 }
   .hero-eyebrow {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 400;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -338,9 +339,16 @@
     gap: 12px;
   }
   .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--c-accent); display:none;}
-  .hero h1 { font-size: clamp(36px, 5vw, 62px); font-weight: 200; line-height: 1.15; margin-bottom: 24px; }
+  .hero h1 { font-size: clamp(36px, 5vw, 62px); font-weight: 500; line-height: 1.15; margin-bottom: 24px; }
   .hero h1 em { font-style: normal; font-weight: 500; color: var(--c-accent); }
-  .hero p { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--c-muted); max-width: 520px; margin-bottom: 40px; }
+  .hero p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--c-muted);
+    max-width: 600px;
+    margin-bottom: 40px;
+}
   .hero-cta {
     display: inline-flex; align-items: center; gap: 10px;
     border: 1px solid var(--c-accent); color: var(--c-accent);
@@ -363,14 +371,27 @@
   .stat-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-muted); margin-top: 4px; }
 
   /* Portfolio Section */
-  .section-header { padding: 0 60px; margin-bottom: 48px; }
+  .section-header {
+    padding: 0 60px;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
   .section-tag {
     font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--c-accent); margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
   }
-  .section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--c-accent); }
-  .section-header h2 { font-size: clamp(22px, 3vw, 34px); font-weight: 200; }
-  .section-header p { font-size: 14px; color: var(--c-muted); margin-top: 12px; max-width: 480px; }
+  .section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--c-accent); display: none;}
+  .section-header h2 { font-size: clamp(22px, 3.5vw, 40px); font-weight: 200; }
+  .section-header p { font-size: 15px;
+    color: var(--c-muted);
+    margin-top: 12px;
+    max-width: 480px;
+    line-height: 1.6;}
+  
 
   /* Dynamic Headline fade-up */
   .fade-up-headline { animation: headlineFadeUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards; }
@@ -381,6 +402,7 @@
     display: flex; flex-wrap: wrap; gap: 8px;
     padding: 0 60px 24px; border-bottom: 1px solid var(--c-border);
     margin-bottom: 32px;
+    justify-content: center;
   }
   .filter-btn {
     background: transparent; border: none; padding: 8px 20px;
@@ -532,7 +554,7 @@
 </section>
 
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">7<span>+</span></div><div class="stat-label">Live Projects</div></div>
+  <div class="stat"><div class="stat-num">200 +<span>+</span></div><div class="stat-label">Live Projects</div></div>
   <div class="stat"><div class="stat-num">100<span>%</span></div><div class="stat-label">Mobile Optimized</div></div>
   <div class="stat"><div class="stat-num">FL</div><div class="stat-label">Statewide Coverage</div></div>
   <div class="stat"><div class="stat-num">5<span>★</span></div><div class="stat-label">Client Rating</div></div>
