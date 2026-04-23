@@ -13,7 +13,7 @@
 
   /* Default Dark Mode Variables */
   :root {
-    --c-bg: #0a0a0a;
+    --c-bg: #242424;
     --c-surface: #111111;
     --c-card: #161616;
     --c-border: rgba(255,255,255,0.07);
@@ -23,7 +23,7 @@
     --c-muted: rgba(240,237,232,0.45);
     --c-tag: rgba(212,175,106,0.12);
     --c-tag-text: #d4af6a;
-    --c-nav-bg: rgba(10,10,10,0.92);
+    --c-nav-bg: rgba(10,10,10,0.0);
     --c-nav-border: rgba(255,255,255,0.07);
     --c-overlay: rgba(0,0,0,0.85);
     --c-shadow: rgba(0,0,0,0.3);
@@ -314,12 +314,18 @@
   .back-to-top.show { opacity: 1; visibility: visible; }
 
   /* Hero */
-  .hero {
-    padding: 140px 60px 80px;
-    max-width: 900px;
+ .hero {
+    padding: 152px 60px 80px;
+    max-width: 1058px;
     position: relative;
     z-index: 1;
-  }
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+}
   .hero-eyebrow {
     font-size: 10px;
     font-weight: 400;
@@ -331,7 +337,7 @@
     align-items: center;
     gap: 12px;
   }
-  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--c-accent); }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--c-accent); display:none;}
   .hero h1 { font-size: clamp(36px, 5vw, 62px); font-weight: 200; line-height: 1.15; margin-bottom: 24px; }
   .hero h1 em { font-style: normal; font-weight: 500; color: var(--c-accent); }
   .hero p { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--c-muted); max-width: 520px; margin-bottom: 40px; }
@@ -349,6 +355,7 @@
     display: flex; gap: 48px; padding: 36px 60px;
     border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border);
     margin-bottom: 80px;
+    justify-content: center;
   }
   .stat { text-align: center; }
   .stat-num { font-size: 28px; font-weight: 200; color: var(--c-text); }
