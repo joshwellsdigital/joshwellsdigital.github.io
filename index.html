@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -33,7 +32,7 @@
     --font: 'Montserrat', sans-serif;
   }
 
-  /* Light Mode Variables - applied when .light-mode class is on body */
+  /* Light Mode Variables */
   body.light-mode {
     --c-bg: #f5f5f0;
     --c-surface: #ffffff;
@@ -63,13 +62,45 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  /* Star Particles - hidden in light mode */
+  /* Star Particles */
   #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
   .star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--d) var(--dl) infinite; opacity: 0; }
   @keyframes twinkle { 0%,100%{opacity:0;transform:scale(.5)} 50%{opacity:var(--op);transform:scale(1)} }
   body.light-mode .star { display: none; }
 
-  /* NAV with shrink effect + submenu */
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  }
+  .close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    font-weight: 300;
+  }
+
+  /* NAV */
   nav {
     display: flex;
     justify-content: space-between;
@@ -86,127 +117,37 @@
     transition: all 0.3s ease;
   }
   nav.shrink { padding: 16px 60px; }
-  .nav-logo {
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--c-text);
-    text-decoration: none;
-  }
+  .nav-logo { font-size: 22px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-text); text-decoration: none; }
   .nav-logo span { color: var(--c-accent); }
   
   .nav-links-desktop { list-style: none; display: flex; gap: 54px; align-items: center; }
   .nav-links-desktop li { position: relative; }
-  .nav-links-desktop a {
-    font-size: 14px;
-    /* font-weight: 400; */
-    letter-spacing: 0.15rem;
-    /* text-transform: uppercase; */
-    color: var(--c-muted);
-    text-decoration: none;
-    transition: color 0.3s;
-    color: #b1b1b1;
-}
-.chevron--01 {
-    display: inline-block;
-    width: 15px;
-    height: 48px;
-    vertical-align: middle;
-    stroke: #a6a6a6;
-    stroke-width: 1.5;
-    position: absolute;
-    left: 3px;
-    top: -12.5px;
-    opacity: .65;
-}
+  .nav-links-desktop a { font-size: 14px; letter-spacing: 0.15rem; color: #b1b1b1; text-decoration: none; transition: color 0.3s; }
+  .chevron--01 { display: inline-block; width: 15px; height: 48px; vertical-align: middle; stroke: #a6a6a6; stroke-width: 1.5; position: absolute; left: 3px; top: -12.5px; opacity: .65; }
   .nav-links-desktop a:hover { color: var(--c-accent); }
   
-  /* Submenu hover slide-up */
   .submenu-item { position: relative; }
   .submenu {
-    position: absolute;
-    top: 32px;
-    left: -20px;
-    background: var(--c-surface);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--c-border);
-    border-radius: 12px;
-    padding: 10px 0;
-    min-width: 180px;
-    list-style: none;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    position: absolute; top: 32px; left: -20px;
+    background: var(--c-surface); backdrop-filter: blur(12px);
+    border: 1px solid var(--c-border); border-radius: 12px; padding: 10px 0;
+    min-width: 180px; list-style: none; opacity: 0; visibility: hidden;
+    transform: translateY(-10px); transition: opacity 0.25s ease, transform 0.25s ease;
     z-index: 1001;
   }
-  .submenu a {
-    display: block;
-    padding: 8px 20px;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--c-muted);
-    white-space: nowrap;
-  }
+  .submenu a { display: block; padding: 8px 20px; font-size: 10px; letter-spacing: 0.1em; color: var(--c-muted); white-space: nowrap; }
   .submenu a:hover { background: rgba(212,175,106,0.1); color: var(--c-accent); }
-  .submenu-item:hover .submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
+  .submenu-item:hover .submenu { opacity: 1; visibility: visible; transform: translateY(0); }
   
-  .nav-cta {
-    background: var(--c-accent);
-    color: var(--c-bg);
-    padding: 8px 20px;
-    border-radius: 30px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: 0.2s;
-  }
+  .nav-cta { background: var(--c-accent); color: var(--c-bg); padding: 8px 20px; border-radius: 30px; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; transition: 0.2s; }
   .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
-  /* Dark/Light Toggle Switch */
-.theme-toggle {
-    background: var(--c-surface);
-    border: 1px solid var(--c-border);
-    border-radius: 40px;
-    width: 35px;
-    height: 34px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 17px;
-    color: var(--c-accent);
-    transition: 0.2s;
-}
-  .theme-toggle:hover { transform: scale(1.075);  }
+  .theme-toggle { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: 40px; width: 35px; height: 34px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--c-accent); transition: 0.2s; }
+  .theme-toggle:hover { transform: scale(1.075); }
 
-  /* Mobile Menu Button */
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
-    position: relative;
-    z-index: 1010;
-  }
-  .menu-toggle span {
-    display: block;
-    position: absolute;
-    width: 24px;
-    height: 2px;
-    background: var(--c-accent);
-    border-radius: 2px;
-    transition: 0.3s ease-in-out;
-  }
+  /* Mobile Menu */
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; width: 32px; height: 32px; position: relative; z-index: 1010; }
+  .menu-toggle span { display: block; position: absolute; width: 24px; height: 2px; background: var(--c-accent); border-radius: 2px; transition: 0.3s ease-in-out; }
   .menu-toggle span:nth-child(1) { top: 8px; left: 4px; }
   .menu-toggle span:nth-child(2) { top: 15px; left: 4px; }
   .menu-toggle span:nth-child(3) { top: 22px; left: 4px; }
@@ -214,232 +155,69 @@
   .menu-toggle.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
   .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg); top: 15px; }
 
-  /* Mobile Slide Menu */
   .mobile-menu {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 75%;
-    max-width: 320px;
-    height: 100vh;
-    background: var(--c-surface);
-    backdrop-filter: blur(20px);
-    z-index: 1005;
-    padding: 100px 28px 40px;
-    box-shadow: -8px 0 32px var(--c-shadow);
-    transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-left: 1px solid var(--c-border);
+    position: fixed; top: 0; right: -100%; width: 75%; max-width: 320px; height: 100vh;
+    background: var(--c-surface); backdrop-filter: blur(20px); z-index: 1005; padding: 100px 28px 40px;
+    box-shadow: -8px 0 32px var(--c-shadow); transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    display: flex; flex-direction: column; justify-content: space-between; border-left: 1px solid var(--c-border);
   }
   .mobile-menu.open { right: 0; }
   .mobile-nav-list { list-style: none; display: flex; flex-direction: column; gap: 24px; }
   .mobile-nav-item { border-bottom: 1px solid var(--c-border); padding-bottom: 8px; }
-  .mobile-nav-link {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--c-text);
-    text-decoration: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .mobile-submenu-toggle {
-    background: none;
-    border: none;
-    color: var(--c-accent);
-    font-size: 1.2rem;
-    cursor: pointer;
-    width: 32px;
-  }
-  .mobile-submenu {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
-    list-style: none;
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  .mobile-nav-link { font-size: 1.1rem; font-weight: 500; color: var(--c-text); text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+  .mobile-submenu-toggle { background: none; border: none; color: var(--c-accent); font-size: 1.2rem; cursor: pointer; width: 32px; }
+  .mobile-submenu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; list-style: none; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; }
   .mobile-submenu.open-sub { max-height: 200px; margin-top: 12px; }
-  .mobile-submenu li a {
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: var(--c-muted);
-    text-decoration: none;
-    display: block;
-    padding: 6px 0;
-  }
-  .mobile-cta {
-    margin-top: 32px;
-    background: var(--c-accent);
-    color: var(--c-bg);
-    text-align: center;
-    padding: 14px;
-    border-radius: 40px;
-    font-weight: 600;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    display: block;
-  }
-  .close-menu-btn {
-    position: absolute;
-    top: 28px;
-    right: 28px;
-    background: none;
-    border: none;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-  }
-  .close-menu-btn::before, .close-menu-btn::after {
-    content: '';
-    position: absolute;
-    top: 14px;
-    left: 4px;
-    width: 24px;
-    height: 2px;
-    background: var(--c-accent);
-    transform: rotate(45deg);
-  }
+  .mobile-submenu li a { font-size: 0.85rem; font-weight: 400; color: var(--c-muted); text-decoration: none; display: block; padding: 6px 0; }
+  .mobile-cta { margin-top: 32px; background: var(--c-accent); color: var(--c-bg); text-align: center; padding: 14px; border-radius: 40px; font-weight: 600; text-decoration: none; text-transform: uppercase; font-size: 0.75rem; display: block; }
+  .close-menu-btn { position: absolute; top: 28px; right: 28px; background: none; border: none; width: 32px; height: 32px; cursor: pointer; }
+  .close-menu-btn::before, .close-menu-btn::after { content: ''; position: absolute; top: 14px; left: 4px; width: 24px; height: 2px; background: var(--c-accent); transform: rotate(45deg); }
   .close-menu-btn::after { transform: rotate(-45deg); }
-  .overlay-blur {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(3px);
-    z-index: 1004;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-  }
+  .overlay-blur { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); z-index: 1004; opacity: 0; visibility: hidden; transition: 0.3s; }
   .overlay-blur.active { opacity: 1; visibility: visible; }
 
   /* Back to Top */
-  .back-to-top {
-    position: fixed; bottom: 30px; right: 30px; width: 46px; height: 46px;
-    background: var(--c-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    z-index: 99; opacity: 0; visibility: hidden; transition: 0.3s; cursor: pointer; border: none;
-    color: var(--c-bg); font-size: 1.3rem;
-  }
+  .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 46px; height: 46px; background: var(--c-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 99; opacity: 0; visibility: hidden; transition: 0.3s; cursor: pointer; border: none; color: var(--c-bg); font-size: 1.3rem; }
   .back-to-top.show { opacity: 1; visibility: visible; }
 
   /* Hero */
- .hero {
-    padding: 152px 60px 80px;
-    max-width: 1058px;
-    position: relative;
-    z-index: 1;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    text-align: center;
-    align-items: center;
-}
-  .hero-eyebrow {
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--c-accent);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--c-accent); display:none;}
+  .hero { padding: 152px 60px 80px; max-width: 1058px; position: relative; z-index: 1; justify-content: center; display: flex; flex-direction: column; margin: 0 auto; text-align: center; align-items: center; }
+  .hero-eyebrow { font-size: 11px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
   .hero h1 { font-size: clamp(36px, 5vw, 62px); font-weight: 500; line-height: 1.15; margin-bottom: 24px; }
   .hero h1 em { font-style: normal; font-weight: 500; color: var(--c-accent); }
-.hero p {
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.8;
-    color: #a4a4a4;
-    max-width: 660px;
-    margin-bottom: 40px;
-}
-  .hero-cta {
-    display: inline-flex; align-items: center; gap: 10px;
-    border: 1px solid var(--c-accent); color: var(--c-accent);
-    font-size: 11px; font-weight: 400; letter-spacing: 0.2em;
-    text-transform: uppercase; text-decoration: none; padding: 14px 28px;
-    transition: 0.3s ease;
-  }
-  .hero-cta:hover { background: var(--c-accent); color: var(--c-bg); transform: translateY(-2px, scale(1.05)) !important;}
+  .hero p { font-size: 16px; font-weight: 300; line-height: 1.8; color: #a4a4a4; max-width: 660px; margin-bottom: 40px; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; font-size: 15px; font-weight: 600; text-decoration: none; color: #fff; background: #d4af6a; border-radius: 10px; transition: transform 0.35s ease, box-shadow 0.35s ease; }
+  .hero-cta:hover { transform: translateY(-3px) scale(1.04); background: #c19a53; color: #fff; }
+  .hero-cta i { transition: transform 0.3s ease; }
+  .hero-cta:hover i { transform: translateY(2px); }
 
   /* Stats Bar */
-  .stats-bar {
-    display: flex; gap: 48px; padding: 36px 60px;
-    border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border);
-    margin-bottom: 80px;
-    justify-content: center;
-  }
+  .stats-bar { display: flex; gap: 48px; padding: 36px 60px; border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border); margin-bottom: 80px; justify-content: center; }
   .stat { text-align: center; }
   .stat-num { font-size: 28px; font-weight: 200; color: var(--c-text); }
   .stat-num span { color: var(--c-accent); }
   .stat-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-muted); margin-top: 4px; }
 
   /* Portfolio Section */
-  .section-header {
-    padding: 0 60px;
-    margin-bottom: 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-  .section-tag {
-    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--c-accent); margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
-  }
-  .section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--c-accent); display: none;}
+  .section-header { padding: 0 60px; margin-bottom: 48px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .section-tag { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
   .section-header h2 { font-size: clamp(22px, 3.5vw, 45px); font-weight: 600; }
-  .pricing-section h2 {font-size: clamp(22px, 3.25vw, 45px); font-weight: 600;text-align: center;}
-  .section-header p { font-size: 15px;
-    color: var(--c-muted);
-    margin-top: 12px;
-    max-width: 480px;
-    line-height: 1.6;}
-  
+  .pricing-section h2 { font-size: clamp(22px, 3.25vw, 45px); font-weight: 600; text-align: center; }
+  .section-header p { font-size: 15px; color: var(--c-muted); margin-top: 12px; max-width: 480px; line-height: 1.6; }
 
-  /* Dynamic Headline fade-up */
   .fade-up-headline { animation: headlineFadeUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards; }
   @keyframes headlineFadeUp { 0% { opacity: 0; transform: translateY(16px); } 100% { opacity: 1; transform: translateY(0); } }
 
-  /* Filter Tabs */
-  .filter-tabs {
-    display: flex; flex-wrap: wrap; gap: 8px;
-    padding: 0 60px 24px; border-bottom: 1px solid var(--c-border);
-    margin-bottom: 32px;
-    justify-content: center;
-  }
-  .filter-btn {
-    background: transparent; border: none; padding: 8px 20px;
-    font-family: var(--font); font-size: 11px; font-weight: 500;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--c-muted); cursor: pointer; transition: 0.2s; border-radius: 30px;
-  }
+  .filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 60px 24px; border-bottom: 1px solid var(--c-border); margin-bottom: 32px; justify-content: center; }
+  .filter-btn { background: transparent; border: none; padding: 8px 20px; font-family: var(--font); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-muted); cursor: pointer; transition: 0.2s; border-radius: 30px; }
   .filter-btn:hover { color: var(--c-accent); }
   .filter-btn.active { background: var(--c-accent); color: var(--c-bg); }
 
-  /* Portfolio Grid */
-  .portfolio-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 28px; padding: 0 60px; margin-bottom: 60px;
-  }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 0 60px; margin-bottom: 60px; }
   @media (max-width: 1000px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 700px) { .portfolio-grid { grid-template-columns: 1fr; padding: 0 24px; } }
 
-  .portfolio-card {
-    background: var(--c-card); border-radius: 16px; overflow: hidden;
-    cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
-    border: 1px solid var(--c-border); opacity: 0; transform: translateY(20px);
-  }
+  .portfolio-card { background: var(--c-card); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid var(--c-border); opacity: 0; transform: translateY(20px); }
   .portfolio-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; }
   .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px var(--c-card-shadow); border-color: var(--c-accent); }
   .card-image { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.4s; }
@@ -447,54 +225,33 @@
   .card-info { padding: 18px 20px 22px; background: var(--c-card); }
   .card-type { font-size: 9px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 8px; }
   .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--c-text); }
-  .card-city { font-size: 11px; color: var(--c-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
   .card-desc { font-size: 12px; color: var(--c-muted); line-height: 1.5; margin-bottom: 16px; }
-  .card-link { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-accent); text-decoration: none; transition: gap 0.2s; }
-  .card-link:hover { gap: 12px; }
 
-  /* About Section */
-  .about-section {
-    padding: 60px; display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; border-top: 1px solid var(--c-border); margin-top: 20px;
-  }
+  /* About & Pricing & FAQ (styles kept compact) */
+  .about-section { padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; border-top: 1px solid var(--c-border); }
   @media (max-width: 780px) { .about-section { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; } }
   .about-left h3 { font-size: 33px; font-weight: 600; line-height: 1.4; margin-bottom: 20px; }
   .about-left p { font-size: 15px; line-height: 1.9; color: var(--c-muted); margin-bottom: 16px; }
   .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .skill-item { border: 1px solid var(--c-border); border-radius: var(--radius); padding: 16px; background: var(--c-surface); }
   .skill-item i { font-size: 18px; color: var(--c-accent); margin-bottom: 10px; }
-  .skill-item h4 { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
-  .skill-item p { font-size: 11px; color: var(--c-muted); }
   .tag { background: var(--c-tag); color: var(--c-tag-text); font-size: 9px; padding: 4px 10px; border-radius: 2px; }
-
-  /* Pricing & FAQ */
   .pricing-section, .faq-section { padding: 80px 60px; border-top: 1px solid var(--c-border); }
   .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; margin-top: 48px; }
   .pricing-card { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: 16px; padding: 32px 24px; }
   .pricing-card.featured { border-color: var(--c-accent); background: rgba(212,175,106,0.05); }
-  .pricing-popular { background: var(--c-accent); color: var(--c-bg); font-size: 10px; font-weight: 600; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 16px; }
   .pricing-price { font-size: 42px; font-weight: 300; margin: 16px 0 8px; }
   .pricing-features { list-style: none; margin: 24px 0 32px; display: flex; flex-direction: column; gap: 12px; }
   .pricing-features li { font-size: 12px; color: var(--c-muted); display: flex; align-items: center; gap: 10px; }
-  .pricing-features li i { color: var(--c-accent); width: 18px; }
   .pricing-btn { display: block; text-align: center; padding: 12px; border: 1px solid var(--c-accent); color: var(--c-accent); text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 30px; }
-  .pricing-btn:hover { background: var(--c-accent); color: var(--c-bg); }
-
   .faq-grid { max-width: 800px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 16px; }
   .faq-item { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: 12px; overflow: hidden; }
   .faq-question { padding: 18px 24px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
-  .faq-question i { transition: transform 0.3s; color: var(--c-accent); }
   .faq-answer { max-height: 0; padding: 0 24px; overflow: hidden; transition: 0.35s; color: var(--c-muted); font-size: 13px; }
   .faq-item.active .faq-answer { max-height: 150px; padding: 0 24px 20px; }
-  .faq-item.active .faq-question i { transform: rotate(45deg); }
-
   .contact-section { padding: 80px 60px; border-top: 1px solid var(--c-border); text-align: center; }
-  .contact-section h2 { font-size: 32px; font-weight: 200; margin-bottom: 14px; }
-  .contact-section p { font-size: 14px; color: var(--c-muted); margin-bottom: 36px; }
   .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-  .contact-link { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--c-border); color: var(--c-text); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; padding: 12px 24px; transition: 0.3s; }
-  .contact-link:hover { border-color: var(--c-accent); color: var(--c-accent); }
-
+  .contact-link { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--c-border); color: var(--c-text); font-size: 11px; letter-spacing: 0.15em; text-decoration: none; padding: 12px 24px; transition: 0.3s; }
   footer { padding: 28px 60px; border-top: 1px solid var(--c-border); display: flex; justify-content: space-between; font-size: 11px; color: var(--c-muted); flex-wrap: wrap; }
 
   @media (max-width: 768px) {
@@ -502,39 +259,31 @@
     .nav-links-desktop { display: none; }
     .menu-toggle { display: block; }
     .hero, .stats-bar, .section-header, .filter-tabs, .pricing-section, .faq-section, .contact-section { padding-left: 24px; padding-right: 24px; }
-    .stats-bar { gap: 24px; flex-wrap: wrap; justify-content: center; }
     .portfolio-grid { padding: 0 24px; }
-    footer { padding: 24px; flex-direction: column; text-align: center; gap: 12px; }
+    footer { padding: 24px; flex-direction: column; text-align: center; }
   }
 </style>
 </head>
 <body>
 
 <div id="stars"></div>
+<div class="lightbox" id="lightbox">
+  <span class="close-lightbox">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
 
 <nav id="navbar">
   <a href="#" class="nav-logo">Josh<span>.</span>Wells</a>
   <ul class="nav-links-desktop">
     <li><a href="#portfolio">Work</a></li>
-    <li class="submenu-item">
-      <a href="#about">Services <span style="position: absolute;"><svg class="chevron--01" viewBox="0 0 20 20" fill="none">
-
-              <polyline points="5 8 10 13 15 8" stroke-linecap="round" stroke-linejoin="round"></polyline>
-
-            </svg></span></a>
-      <ul class="submenu">
-        <li><a href="#about">Web Design</a></li>
-        <li><a href="#about">Local SEO</a></li>
-        <li><a href="#about">CRO</a></li>
-      </ul>
+    <li class="submenu-item"><a href="#about">Services <span style="position: absolute;"><svg class="chevron--01" viewBox="0 0 20 20" fill="none"><polyline points="5 8 10 13 15 8" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span></a>
+      <ul class="submenu"><li><a href="#about">Web Design</a></li><li><a href="#about">Local SEO</a></li><li><a href="#about">CRO</a></li></ul>
     </li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
   <div style="display: flex; gap: 18px; align-items: center;">
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-      <i class="fa-solid fa-moon" id="themeIcon"></i>
-    </button>
+    <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
     <a href="#contact" class="nav-cta">Let's Talk</a>
     <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
   </div>
@@ -547,13 +296,8 @@
     <ul class="mobile-nav-list">
       <li class="mobile-nav-item"><a href="#home" class="mobile-nav-link">Home</a></li>
       <li class="mobile-nav-item"><a href="#portfolio" class="mobile-nav-link">Work</a></li>
-      <li class="mobile-nav-item">
-        <div class="mobile-nav-link" style="cursor:pointer;"><span>Services</span><button class="mobile-submenu-toggle" id="mobileSubToggle">+</button></div>
-        <ul class="mobile-submenu" id="mobileSubmenu">
-          <li><a href="#about">Web Design</a></li>
-          <li><a href="#about">Local SEO</a></li>
-          <li><a href="#about">CRO</a></li>
-        </ul>
+      <li class="mobile-nav-item"><div class="mobile-nav-link" style="cursor:pointer;"><span>Services</span><button class="mobile-submenu-toggle" id="mobileSubToggle">+</button></div>
+        <ul class="mobile-submenu" id="mobileSubmenu"><li><a href="#about">Web Design</a></li><li><a href="#about">Local SEO</a></li><li><a href="#about">CRO</a></li></ul>
       </li>
       <li class="mobile-nav-item"><a href="#pricing" class="mobile-nav-link">Pricing</a></li>
       <li class="mobile-nav-item"><a href="#faq" class="mobile-nav-link">FAQ</a></li>
@@ -565,62 +309,15 @@
 <button class="back-to-top" id="backToTop">↑</button>
 
 <section class="hero" id="home">
-  <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="600" class="hero-eyebrow">Web Designer & Developer</div>
-  <h1 data-aos="fade-up" data-aos-delay="0" data-aos-duration="600">Crafting digital experiences for <em>service-based</em> businesses</h1>
-  <p data-aos="fade-up" data-aos-delay="0" data-aos-duration="700">I build fast, clean, conversion-focused websites for home service companies across Florida. Every project is designed to rank, convert, and impress.</p>
-  <style>
-  .hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 14px 22px;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-
-  color: #fff;
-  background: #d4af6a;
-
-  border-radius: 10px;
-
-  transition: 
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease,
-    background 0.25s ease;
-
-  /* box-shadow: 0 6px 18px rgba(212, 175, 106, 0.3); */
-}
-
-/* AOS-safe hover */
-[data-aos].aos-animate.hero-cta:hover {
-  transform: translateY(-3px) scale(1.04);
-  background: #c19a53; /* slightly darker version of #d4af6a */
-  /* box-shadow: 0 12px 28px rgba(212, 175, 106, 0.4); */
-  color: #fff; /* force white text */
-}
-
-/* icon micro-movement */
-.hero-cta i {
-  transition: transform 0.3s ease;
-}
-
-[data-aos].aos-animate.hero-cta:hover i {
-  transform: translateY(2px);
-}
-
-/* click feedback */
-.hero-cta:active {
-  transform: translateY(-1px) scale(0.98);
-}
-  </style>
-  <a data-aos="fade-up" data-aos-delay="0" data-aos-duration="800" href="#portfolio" class="hero-cta"><i class="fa-solid fa-arrow-down"></i> View Portfolio</a>
+  <div data-aos="fade-up" data-aos-delay="100" class="hero-eyebrow">Web Designer & Developer</div>
+  <h1 data-aos="fade-up">Crafting digital experiences for <em>service-based</em> businesses</h1>
+  <p data-aos="fade-up">I build fast, clean, conversion-focused websites for home service companies across Florida. Every project is designed to rank, convert, and impress.</p>
+  <a data-aos="fade-up" href="#portfolio" class="hero-cta"><i class="fa-solid fa-arrow-down"></i> View Portfolio</a>
 </section>
 
 <div class="stats-bar">
   <div class="stat"><div class="stat-num">200<span>+</span></div><div class="stat-label">Websites Built</div></div>
-  <div class="stat"><div class="stat-num">175<span>+</span></div><div class="stat-label">SEO Campaigns Launched</div></div>
-  <!-- <div class="stat"><div class="stat-num">100<span>%</span></div><div class="stat-label">Mobile Optimized</div></div> -->
+  <div class="stat"><div class="stat-num">175<span>+</span></div><div class="stat-label">SEO Campaigns</div></div>
   <div class="stat"><div class="stat-num">99.9%</div><div class="stat-label">Satisfaction</div></div>
   <div class="stat"><div class="stat-num">4.9<span>★</span></div><div class="stat-label">Client Rating</div></div>
 </div>
@@ -629,9 +326,8 @@
   <div class="section-header" id="dynamicHeader">
     <div class="section-tag" id="dynamicEyebrow">Selected Work</div>
     <h2 id="dynamicHeadline">Florida Service<br>Business Websites</h2>
-    <p id="dynamicSubhead">Real, top-ranking service companies across Florida — built to dominate local search and convert visitors into customers.</p>
+    <p id="dynamicSubhead">Real, top-ranking service companies across Florida — built to dominate local search.</p>
   </div>
-
   <div class="filter-tabs" id="filterTabs">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="hvac">HVAC</button>
@@ -639,9 +335,8 @@
     <button class="filter-btn" data-filter="electric">Electrical</button>
     <button class="filter-btn" data-filter="pest">Pest Control</button>
     <button class="filter-btn" data-filter="lawn">Lawn & Pool</button>
-    <button class="filter-btn" data-filter="sections">Sections</button>
+    <button class="filter-btn" data-filter="sections">📁 Sections (Custom)</button>
   </div>
-
   <div class="portfolio-grid" id="portfolioGrid"></div>
 </div>
 
@@ -656,10 +351,10 @@
   <div class="about-right">
     <div class="section-tag" style="margin-bottom:16px;">Skills & Services</div>
     <div class="skills-grid">
-      <div class="skill-item"><i class="fa-solid fa-code"></i><h4>Web Development</h4><p>Clean, fast HTML/CSS/JS with no unnecessary frameworks</p></div>
-      <div class="skill-item"><i class="fa-solid fa-magnifying-glass-location"></i><h4>Local SEO</h4><p>Rank on page 1 for your city and service keywords</p></div>
-      <div class="skill-item"><i class="fa-solid fa-mobile-screen"></i><h4>Responsive Design</h4><p>Pixel-perfect layouts on every screen size</p></div>
-      <div class="skill-item"><i class="fa-solid fa-gauge-high"></i><h4>Performance</h4><p>Sub-2s load times, 95+ Google PageSpeed scores</p></div>
+      <div class="skill-item"><i class="fa-solid fa-code"></i><h4>Web Development</h4><p>Clean, fast HTML/CSS/JS</p></div>
+      <div class="skill-item"><i class="fa-solid fa-magnifying-glass-location"></i><h4>Local SEO</h4><p>Rank on page 1</p></div>
+      <div class="skill-item"><i class="fa-solid fa-mobile-screen"></i><h4>Responsive Design</h4><p>Pixel-perfect layouts</p></div>
+      <div class="skill-item"><i class="fa-solid fa-gauge-high"></i><h4>Performance</h4><p>Sub-2s load times</p></div>
     </div>
   </div>
 </section>
@@ -668,20 +363,20 @@
   <div class="section-tag" style="justify-content:center; margin-bottom:16px;">Investment</div>
   <h2>Transparent pricing.<br>No surprises.</h2>
   <div class="pricing-grid">
-    <div class="pricing-card"><div class="pricing-popular">Starter</div><div class="pricing-price"><sup>$</sup>1,200</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Custom design (no templates)</li><li><i class="fa-solid fa-check"></i>Mobile-first responsive</li><li><i class="fa-solid fa-check"></i>Basic on-page SEO</li><li><i class="fa-solid fa-check"></i>30-day support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
-    <div class="pricing-card featured"><div class="pricing-popular">Most Popular</div><div class="pricing-price"><sup>$</sup>2,800</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Everything in Starter</li><li><i class="fa-solid fa-check"></i>Local SEO optimization</li><li><i class="fa-solid fa-check"></i>Lead capture landing page</li><li><i class="fa-solid fa-check"></i>Google Business Profile</li><li><i class="fa-solid fa-check"></i>90-day support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
-    <div class="pricing-card"><div class="pricing-popular">Authority</div><div class="pricing-price"><sup>$</sup>5,500</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Everything in Growth</li><li><i class="fa-solid fa-check"></i>Ongoing SEO content</li><li><i class="fa-solid fa-check"></i>Monthly reports</li><li><i class="fa-solid fa-check"></i>Priority support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
+    <div class="pricing-card"><div class="pricing-popular">Starter</div><div class="pricing-price"><sup>$</sup>1,200</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Custom design</li><li><i class="fa-solid fa-check"></i>Mobile-first</li><li><i class="fa-solid fa-check"></i>Basic SEO</li><li><i class="fa-solid fa-check"></i>30-day support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
+    <div class="pricing-card featured"><div class="pricing-popular">Most Popular</div><div class="pricing-price"><sup>$</sup>2,800</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Everything in Starter</li><li><i class="fa-solid fa-check"></i>Local SEO</li><li><i class="fa-solid fa-check"></i>Lead capture page</li><li><i class="fa-solid fa-check"></i>90-day support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
+    <div class="pricing-card"><div class="pricing-popular">Authority</div><div class="pricing-price"><sup>$</sup>5,500</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Everything in Growth</li><li><i class="fa-solid fa-check"></i>Ongoing SEO</li><li><i class="fa-solid fa-check"></i>Monthly reports</li><li><i class="fa-solid fa-check"></i>Priority support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
   </div>
 </section>
 
 <section id="faq" class="faq-section">
   <div class="section-tag" style="justify-content:center; margin-bottom:16px;">Got questions?</div>
-  <h2 style="text-align:center; font-weight:200;">Frequently asked questions</h2>
+  <h2 style="text-align:center;">Frequently asked questions</h2>
   <div class="faq-grid">
-    <div class="faq-item"><div class="faq-question"><span>How long does a typical website take?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Most projects take 3–5 weeks from start to finish, including revisions.</div></div>
-    <div class="faq-item"><div class="faq-question"><span>Do you offer payment plans?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Yes. 50% deposit upfront, 25% at design approval, 25% at launch.</div></div>
-    <div class="faq-item"><div class="faq-question"><span>Will my website be mobile-friendly?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Absolutely. Every site is fully responsive and passes Google's mobile test.</div></div>
-    <div class="faq-item"><div class="faq-question"><span>Do you provide ongoing support?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Yes, each package includes 30–90 days of support. Maintenance plans available.</div></div>
+    <div class="faq-item"><div class="faq-question"><span>How long does a typical website take?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Most projects take 3–5 weeks.</div></div>
+    <div class="faq-item"><div class="faq-question"><span>Do you offer payment plans?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Yes. 50% deposit, 25% at design approval, 25% at launch.</div></div>
+    <div class="faq-item"><div class="faq-question"><span>Will my website be mobile-friendly?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Absolutely. Fully responsive.</div></div>
+    <div class="faq-item"><div class="faq-question"><span>Do you provide ongoing support?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Yes, each package includes support.</div></div>
   </div>
 </section>
 
@@ -695,13 +390,13 @@
   </div>
 </section>
 
-<footer>
-  <span>© 2026 Josh Wells — Web Design & Development</span>
-  <span>St. Petersburg, Florida</span>
-</footer>
+<footer><span>© 2026 Josh Wells — Web Design & Development</span><span>St. Petersburg, Florida</span></footer>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // Stars generation
+  AOS.init({ duration: 600, once: true });
+  
+  // Stars
   const starsDiv = document.getElementById('stars');
   for(let i=0;i<120;i++){let s=document.createElement('div');s.className='star';let size=0.8+Math.random()*2.2;s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;--d:${3+Math.random()*6}s;--dl:${Math.random()*8}s;--op:${0.2+Math.random()*0.7}`;starsDiv.appendChild(s);}
 
@@ -709,38 +404,16 @@
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll',()=>{if(window.scrollY>50) nav.classList.add('shrink'); else nav.classList.remove('shrink');});
   const backBtn = document.getElementById('backToTop');
-  window.addEventListener('scroll',()=>{if(window.scrollY>40) backBtn.classList.add('show'); else backBtn.classList.remove('show');});
+  window.addEventListener('scroll',()=>{if(window.scrollY>400) backBtn.classList.add('show'); else backBtn.classList.remove('show');});
   backBtn.onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
 
-  // Dark/Light Mode Toggle - FIXED
+  // Theme Toggle
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
-  
-  function setTheme(isDark) {
-    if(isDark) {
-      document.body.classList.remove('light-mode');
-      themeIcon.className = 'fa-solid fa-moon';
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.body.classList.add('light-mode');
-      themeIcon.className = 'fa-solid fa-sun';
-      localStorage.setItem('theme', 'light');
-    }
-  }
-  
-  // Load saved theme on page load
+  function setTheme(isDark) { if(isDark) { document.body.classList.remove('light-mode'); themeIcon.className = 'fa-solid fa-moon'; localStorage.setItem('theme', 'dark'); } else { document.body.classList.add('light-mode'); themeIcon.className = 'fa-solid fa-sun'; localStorage.setItem('theme', 'light'); } }
   const savedTheme = localStorage.getItem('theme');
-  if(savedTheme === 'light') {
-    setTheme(false);
-  } else {
-    setTheme(true);
-  }
-  
-  // Toggle when button is clicked
-  themeToggle.addEventListener('click', () => {
-    const isCurrentlyDark = !document.body.classList.contains('light-mode');
-    setTheme(!isCurrentlyDark);
-  });
+  if(savedTheme === 'light') setTheme(false); else setTheme(true);
+  themeToggle.addEventListener('click', () => { const isDark = !document.body.classList.contains('light-mode'); setTheme(!isDark); });
 
   // Mobile menu
   const menuToggle = document.getElementById('menuToggle');
@@ -762,29 +435,31 @@
   // FAQ
   document.querySelectorAll('.faq-item').forEach(item=>{ item.querySelector('.faq-question').addEventListener('click',()=>{ const active=item.classList.contains('active'); document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active')); if(!active) item.classList.add('active'); }); });
 
-  // Portfolio Data
+  // Portfolio Data - includes a custom "sections" tab with lightbox images
   const portfolioData = [
-    { title: "Ferran Services", category: "hvac", type: "HVAC Repair", city: "Orlando, FL", desc: "Trusted since 1910. Top-rated AC repair & HVAC contractor.", link: "https://ferran-services.com/", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=450&fit=crop" },
-    { title: "NEXGEN Roofing", category: "roofing", type: "Roofing Company", city: "Jacksonville, FL", desc: "Owens Corning Platinum Preferred. 1,500+ roofs installed.", link: "https://www.nexgenfl.com/", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=450&fit=crop" },
-    { title: "Suncoast Electric Inc.", category: "electric", type: "Electrical Services", city: "St. Petersburg, FL", desc: "Family-owned electrical contractor since 1970.", link: "https://suncoastelectricinc.com/", image: "https://images.unsplash.com/photo-1504328345606-18bbc8c58d76?w=600&h=450&fit=crop" },
-    { title: "Native Pest Management", category: "pest", type: "Pest Control", city: "Fort Lauderdale, FL", desc: "2,000+ five-star reviews. Pet-friendly, eco-safe.", link: "https://www.nativepestmanagement.com/fort-lauderdale-fl-pest-control/", image: "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=600&h=450&fit=crop" },
-    { title: "Blue Collar Q", category: "lawn", type: "Lawn Care", city: "Cape Coral, FL", desc: "Cape Coral's top-rated landscaping company.", link: "https://bluecollarq.net/", image: "https://images.unsplash.com/photo-1558904541-efa843c96f01?w=600&h=450&fit=crop" },
-    { title: "On-Time Pool Service", category: "lawn", type: "Pool Cleaning", city: "Sarasota, FL", desc: "A+ BBB rated. Weekly maintenance & repairs.", link: "https://ontimepoolservice.com/", image: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=600&h=450&fit=crop" },
-    { title: "Clearwater Soft Wash Pros", category: "lawn", type: "Pressure Washing", city: "Clearwater, FL", desc: "5-star rated, family-owned.", link: "https://clearwatersoftwashpros.com/", image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=450&fit=crop" },
-    { title: "Avenue Roofing", category: "roofing", type: "Roofing Contractor", city: "Jacksonville, FL", desc: "Top 1% Florida contractors.", link: "https://avenueroofing.com/", image: "https://images.unsplash.com/photo-1632778149955-e80f8ceca2b8?w=600&h=450&fit=crop" },
-    { title: "Del-Air Services", category: "hvac", type: "HVAC · Plumbing", city: "Orlando, FL", desc: "Central Florida's HVAC leader since 1983.", link: "https://www.delair.com/orlando-north/hvac/", image: "https://images.unsplash.com/photo-1621905251189-08b45d6a26f7?w=600&h=450&fit=crop",
-      title: "blael-Air Services", category: "sections", type: "HVAC · Plumbing", city: "Orlando, FL", desc: "Central Florida's HVAC leader since 1983.", link: "https://www.delair.com/orlando-north/hvac/", image: "https://images.unsplash.com/photo-1621905251189-08b45d6a26f7?w=600&h=450&fit=crop"
-     }
+    { title: "Ferran Services", category: "hvac", type: "HVAC Repair", city: "Orlando, FL", desc: "Trusted since 1910. Top-rated AC repair.", link: "https://ferran-services.com/", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=450&fit=crop", isLightbox: false },
+    { title: "NEXGEN Roofing", category: "roofing", type: "Roofing Company", city: "Jacksonville, FL", desc: "Owens Corning Platinum Preferred.", link: "https://www.nexgenfl.com/", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=450&fit=crop", isLightbox: false },
+    { title: "Suncoast Electric", category: "electric", type: "Electrical Services", city: "St. Petersburg, FL", desc: "Family-owned since 1970.", link: "https://suncoastelectricinc.com/", image: "https://images.unsplash.com/photo-1504328345606-18bbc8c58d76?w=600&h=450&fit=crop", isLightbox: false },
+    { title: "Native Pest Management", category: "pest", type: "Pest Control", city: "Fort Lauderdale, FL", desc: "2,000+ reviews. Eco-safe.", link: "https://www.nativepestmanagement.com/fort-lauderdale-fl-pest-control/", image: "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=600&h=450&fit=crop", isLightbox: false },
+    { title: "Blue Collar Q", category: "lawn", type: "Lawn Care", city: "Cape Coral, FL", desc: "Top-rated landscaping company.", link: "https://bluecollarq.net/", image: "https://images.unsplash.com/photo-1558904541-efa843c96f01?w=600&h=450&fit=crop", isLightbox: false },
+    { title: "On-Time Pool Service", category: "lawn", type: "Pool Cleaning", city: "Sarasota, FL", desc: "A+ BBB rated.", link: "https://ontimepoolservice.com/", image: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=600&h=450&fit=crop", isLightbox: false },
+    { title: "Clearwater Soft Wash", category: "lawn", type: "Pressure Washing", city: "Clearwater, FL", desc: "5-star family-owned.", link: "https://clearwatersoftwashpros.com/", image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=450&fit=crop", isLightbox: false },
+    { title: "Avenue Roofing", category: "roofing", type: "Roofing Contractor", city: "Jacksonville, FL", desc: "Top 1% Florida contractors.", link: "https://avenueroofing.com/", image: "https://images.unsplash.com/photo-1632778149955-e80f8ceca2b8?w=600&h=450&fit=crop", isLightbox: false },
+    { title: "Del-Air Services", category: "hvac", type: "HVAC & Plumbing", city: "Orlando, FL", desc: "Central Florida's HVAC leader.", link: "https://www.delair.com/orlando-north/hvac/", image: "https://images.unsplash.com/photo-1621905251189-08b45d6a26f7?w=600&h=450&fit=crop", isLightbox: false },
+    // Custom "Sections" tab items (lightbox-enabled - edit these images/descriptions for your own content)
+    { title: "SEO Results Dashboard", category: "sections", type: "Custom Content", city: "Google Search Console", desc: "Click to view full-size — replace this image with your own screenshot.", link: "#", image: "sc2.png", isLightbox: true, lightboxImg: "sc3.png" },
+    { title: "Custom Web Design Showcase", category: "sections", type: "Design Portfolio", city: "Your Project", desc: "Replace this with your own design mockup or screenshot.", link: "#", image: "https://placehold.co/600x450/3a3a3a/d4af6a?text=Custom+Design+Sample", isLightbox: true, lightboxImg: "https://placehold.co/1200x800/3a3a3a/d4af6a?text=Your+Design+Image" },
+    { title: "Local Rankings Report", category: "sections", type: "SEO Analytics", city: "Search Console Data", desc: "Add your own performance screenshots here.", link: "#", image: "https://placehold.co/600x450/252525/d4af6a?text=Rankings+Report", isLightbox: true, lightboxImg: "https://placehold.co/1200x800/252525/d4af6a?text=Your+Rankings+Image" }
   ];
 
   const headlineMap = {
     all: { eyebrow: "Selected Work", headline: "Florida Service<br>Business Websites", subhead: "Real, top-ranking service companies across Florida — built to dominate local search." },
     hvac: { eyebrow: "Climate Control", headline: "HVAC & Mechanical<br>Service Demos", subhead: "High-converting websites for heating & cooling companies." },
-    roofing: { eyebrow: "Above & Beyond", headline: "Roofing Contractor<br>Portfolio Previews", subhead: "Showcase roofing projects, estimate requests, and warranty information." },
-    electric: { eyebrow: "Power Up", headline: "Electrical Services<br>Live Previews", subhead: "Professional electrician websites with 24/7 emergency callouts." },
-    pest: { eyebrow: "Protect & Defend", headline: "Pest Control<br>Website Demos", subhead: "Trust-building designs for pest management companies." },
-    lawn: { eyebrow: "Green Thumb", headline: "Lawn & Pool<br>Service Showcases", subhead: "Seasonal service promotions and local SEO for outdoor services." },
-    sections: { eyebrow: "Green Thumb", headline: "Sections & Pool<br>Service Showcases", subhead: "Seections service promotions " }
+    roofing: { eyebrow: "Above & Beyond", headline: "Roofing Contractor<br>Portfolio Previews", subhead: "Showcase roofing projects and estimates." },
+    electric: { eyebrow: "Power Up", headline: "Electrical Services<br>Live Previews", subhead: "Professional electrician websites with emergency callouts." },
+    pest: { eyebrow: "Protect & Defend", headline: "Pest Control<br>Website Demos", subhead: "Trust-building designs for pest management." },
+    lawn: { eyebrow: "Green Thumb", headline: "Lawn & Pool<br>Service Showcases", subhead: "Seasonal service promotions and local SEO." },
+    sections: { eyebrow: "📁 Custom Gallery", headline: "Your Custom Content<br>Showcase", subhead: "Replace these placeholder images with your own SEO results, design mockups, or case study screenshots. Click any card to view full size." }
   };
 
   function updateHeadlineWithFade(tabId) {
@@ -793,16 +468,12 @@
       const eyebrow = document.getElementById('dynamicEyebrow');
       const headline = document.getElementById('dynamicHeadline');
       const subhead = document.getElementById('dynamicSubhead');
-      eyebrow.classList.remove('fade-up-headline');
-      headline.classList.remove('fade-up-headline');
-      subhead.classList.remove('fade-up-headline');
+      [eyebrow, headline, subhead].forEach(el => el.classList.remove('fade-up-headline'));
       void eyebrow.offsetWidth;
       eyebrow.innerHTML = h.eyebrow;
       headline.innerHTML = h.headline;
       subhead.innerHTML = h.subhead;
-      eyebrow.classList.add('fade-up-headline');
-      headline.classList.add('fade-up-headline');
-      subhead.classList.add('fade-up-headline');
+      [eyebrow, headline, subhead].forEach(el => el.classList.add('fade-up-headline'));
     }
   }
 
@@ -814,21 +485,39 @@
     });
   }
 
+  // Lightbox functions
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  function openLightbox(imgSrc) {
+    lightboxImg.src = imgSrc;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.querySelector('.close-lightbox').onclick = closeLightbox;
+  lightbox.onclick = (e) => { if(e.target === lightbox) closeLightbox(); };
+
   function renderCards(filter = "all") {
     const filtered = filter === "all" ? portfolioData : portfolioData.filter(item => item.category === filter);
     const grid = document.getElementById('portfolioGrid');
-    grid.innerHTML = filtered.map((item) => `
-      <div class="portfolio-card" onclick="window.open('${item.link}', '_blank')">
-        <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy">
-        <div class="card-info">
-          <div class="card-type">${item.type}</div>
-          <div class="card-title">${item.title}</div>
-          <div class="card-city"><i class="fa-solid fa-location-dot"></i> ${item.city}</div>
-          <div class="card-desc">${item.desc}</div>
-          <div class="card-link">View Live Site <i class="fa-solid fa-arrow-right"></i></div>
+    grid.innerHTML = filtered.map((item) => {
+      const onClickAttr = item.isLightbox 
+        ? `onclick="event.stopPropagation(); openLightbox('${item.lightboxImg || item.image}')"` 
+        : `onclick="window.open('${item.link}', '_blank')"`;
+      return `
+        <div class="portfolio-card" ${onClickAttr}>
+          <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy">
+          <div class="card-info">
+            <div class="card-type">${item.type}</div>
+            <div class="card-title">${item.title}</div>
+            <div class="card-desc">${item.desc}</div>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
     applyStaggeredReveal(grid);
   }
 
@@ -845,18 +534,21 @@
 
   renderCards('all');
 
-  // Smooth anchor scroll
+  // Smooth anchor scroll with offset (80px padding above section)
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const id = this.getAttribute('href');
-      if(id === "#") return;
+      if(id === "#" || id === "") return;
       const target = document.querySelector(id);
-      if(target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+      if(target) {
+        e.preventDefault();
+        const offset = 80; // padding above the eyebrow/section
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
     });
   });
-</script>
-<script>
-  AOS.init();
 </script>
 </body>
 </html>
