@@ -270,7 +270,14 @@
   .faq-question { padding: 18px 24px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
   .faq-answer { max-height: 0; padding: 0 24px; overflow: hidden; transition: 0.35s; color: var(--c-muted); font-size: 13px; }
   .faq-item.active .faq-answer { max-height: 150px; padding: 0 24px 20px; }
-  .contact-section { padding: 80px 60px; border-top: 1px solid var(--c-border); text-align: center; }
+  .contact-section {
+    padding: 80px 60px;
+    border-top: 1px solid var(--c-border);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 17px 8px;
+}
   .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
   .contact-link { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--c-border); color: var(--c-text); font-size: 11px; letter-spacing: 0.15em; text-decoration: none; padding: 12px 24px; transition: 0.3s; }
   footer { padding: 28px 60px; border-top: 1px solid var(--c-border); display: flex; justify-content: space-between; font-size: 11px; color: var(--c-muted); flex-wrap: wrap; }
