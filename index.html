@@ -796,17 +796,20 @@ section#contact h2 {
   </div>
 </section>
 <style>
-
-#seo-marketing-section {
-    padding: 45px 58px;
-    background: transparent;
-    /* font-family: "Lora", serif; */
-    color: #f1f5f9;
-    /* border-top: 1px solid var(--c-border); */
+/* =========================
+   RESULTS / STATS SECTION
+   With Staggered Cards on Right
+   For Dark/Black Background
+========================= */
+#results-stats-section {
+  padding: 90px 20px;
+  background: transparent;
+  font-family: "Lora", serif;
+  color: #f1f5f9;
 }
 
 /* CONTAINER */
-#seo-marketing-section .seo-container {
+#results-stats-section .stats-container {
   max-width: 1140px;
   margin: auto;
   display: flex;
@@ -815,12 +818,12 @@ section#contact h2 {
   gap: 80px;
 }
 
-/* LEFT SIDE */
-#seo-marketing-section .seo-left {
+/* LEFT SIDE - Main Message */
+#results-stats-section .stats-left {
   flex: 1;
 }
 
-#seo-marketing-section .seo-headline {
+#results-stats-section .stats-headline {
   font-size: 2.4rem;
   line-height: 1.3;
   font-weight: 500;
@@ -828,12 +831,12 @@ section#contact h2 {
   margin-bottom: 18px;
 }
 
-#seo-marketing-section .seo-highlight {
+#results-stats-section .stats-highlight {
   color: #d4af37;
   font-weight: 600;
 }
 
-#seo-marketing-section .seo-subtext {
+#results-stats-section .stats-subtext {
   font-size: 1.05rem;
   line-height: 1.7;
   color: #cbd5e1;
@@ -841,8 +844,8 @@ section#contact h2 {
   margin-bottom: 28px;
 }
 
-/* CTA BUTTON - Gold with hover effects */
-#seo-marketing-section .seo-btn {
+/* CTA BUTTON - Gold */
+#results-stats-section .stats-btn {
   display: inline-block;
   background: #d4af37;
   color: #0f172a;
@@ -856,33 +859,33 @@ section#contact h2 {
   text-align: center;
 }
 
-#seo-marketing-section .seo-btn:hover {
+#results-stats-section .stats-btn:hover {
   transform: translateY(-3px) scale(1.02);
   background: #c5a42e;
   color: #0f172a;
   box-shadow: 0 15px 30px rgba(212, 175, 55, 0.35);
 }
 
-#seo-marketing-section .seo-btn:active {
+#results-stats-section .stats-btn:active {
   transform: translateY(0px) scale(0.98);
 }
 
-/* RIGHT SIDE */
-#seo-marketing-section .seo-right {
-    flex: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: right;
-    /* margin-right: -50px; */
+/* RIGHT SIDE - Staggered Stat Cards */
+#results-stats-section .stats-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  margin-right: -50px;
 }
 
 /* CARDS - Transparent dark background */
-#seo-marketing-section .seo-card {
+#results-stats-section .stat-card {
   background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(2px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   width: 330px;
-  padding: 22px 22px 0;
+  padding: 0px 22px;
   border-radius: 14px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -891,17 +894,18 @@ section#contact h2 {
 }
 
 /* tight spacing */
-#seo-marketing-section .seo-card + .seo-card {
+#results-stats-section .stat-card + .stat-card {
   margin-top: 10px;
 }
 
 /* ZIG-ZAG OFFSET */
-#seo-marketing-section .seo-card-1 { margin-left: 95px; }
-#seo-marketing-section .seo-card-2 { margin-left: 25px; }
-#seo-marketing-section .seo-card-3 { margin-left: 110px; }
+#results-stats-section .stat-card-1 { margin-left: 95px; }
+#results-stats-section .stat-card-2 { margin-left: 25px; }
+#results-stats-section .stat-card-3 { margin-left: 110px; }
+#results-stats-section .stat-card-4 { margin-left: 60px; }
 
 /* DOT - Gold */
-#seo-marketing-section .seo-dot {
+#results-stats-section .stat-dot {
   width: 10px;
   height: 10px;
   background: #d4af37;
@@ -912,16 +916,16 @@ section#contact h2 {
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
-/* CARD TEXT */
-#seo-marketing-section .seo-card h4 {
-  font-size: 1.05rem;
-  margin-bottom: 6px;
-  font-weight: 600;
-  color: #f1f5f9;
+/* CARD TEXT - Stat focused */
+#results-stats-section .stat-card h4 {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+  font-weight: 700;
+  color: #d4af37;
 }
 
-#seo-marketing-section .seo-card p {
-  font-size: 0.92rem;
+#results-stats-section .stat-card p {
+  font-size: 0.9rem;
   color: #94a3b8;
   line-height: 1.5;
   margin: 0;
@@ -929,7 +933,7 @@ section#contact h2 {
 }
 
 /* HOVER - horizontal motion */
-#seo-marketing-section .seo-card:hover {
+#results-stats-section .stat-card:hover {
   transform: translateX(10px);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
   background: rgba(30, 41, 59, 0.9);
@@ -940,64 +944,75 @@ section#contact h2 {
    MOBILE RESPONSIVE
 ========================= */
 @media (max-width: 900px) {
-  #seo-marketing-section .seo-container {
+  #results-stats-section .stats-container {
     flex-direction: column;
     text-align: left;
   }
 
-  #seo-marketing-section .seo-right {
+  #results-stats-section .stats-right {
     align-items: center;
     margin-right: 0;
   }
 
-  #seo-marketing-section .seo-card {
+  #results-stats-section .stat-card {
     margin-left: 0 !important;
     width: 100%;
     max-width: 380px;
   }
 
-  #seo-marketing-section .seo-headline {
+  #results-stats-section .stats-headline {
     font-size: 2rem;
+  }
+  
+  #results-stats-section .stat-card h4 {
+    font-size: 1.3rem;
   }
 }
 </style>
 
-<section id="seo-marketing-section">
+<section id="results-stats-section">
 
-  <div class="seo-container">
+  <div class="stats-container">
 
-    <!-- LEFT SIDE -->
-    <div class="seo-left">
-      <h2 class="seo-headline">
-        <span class="seo-highlight">High-Performance Websites</span> That Rank, Convert, and Drive Real Business Growth
+    <!-- LEFT SIDE - Main Message -->
+    <div class="stats-left">
+      <h2 class="stats-headline">
+        Proven Results That <span class="stats-highlight">Multiply Your Growth</span>
       </h2>
 
-      <p class="seo-subtext">
-        No cookie-cutter templates. No bloated code. Just custom-crafted web design, development, and SEO strategies that get your business found on Google and turn visitors into loyal customers.
+      <p class="stats-subtext">
+        It's not just about building websites — it's about delivering measurable outcomes. 
+        Here's what happens when strategy, design, and SEO work together.
       </p>
 
-      <a href="#contact" class="seo-btn">Start Growing Your Presence →</a>
+      <a href="#contact" class="stats-btn">Let's Talk Results →</a>
     </div>
 
-    <!-- RIGHT SIDE -->
-    <div class="seo-right">
+    <!-- RIGHT SIDE - Staggered Stat Cards -->
+    <div class="stats-right">
 
-      <div class="seo-card seo-card-1">
-        <div class="seo-dot"></div>
-        <h4>SEO That Works</h4>
-        <p>Rank #1 on Google with local SEO strategies that bring real leads, not just likes.</p>
+      <div class="stat-card stat-card-1">
+        <div class="stat-dot"></div>
+        <h4>↑ 315%</h4>
+        <p>Average increase in organic traffic within 6 months</p>
       </div>
 
-      <div class="seo-card seo-card-2">
-        <div class="seo-dot"></div>
-        <h4>Conversion-Focused Design</h4>
-        <p>Websites built to turn visitors into phone calls, form fills, and customers.</p>
+      <div class="stat-card stat-card-2">
+        <div class="stat-dot"></div>
+        <h4>↑ 284%</h4>
+        <p>Boost in lead generation after website relaunch</p>
       </div>
 
-      <div class="seo-card seo-card-3">
-        <div class="seo-dot"></div>
-        <h4>Lightning Fast & Mobile Optimized</h4>
-        <p>Blazing fast load times and flawless performance on any device, anywhere.</p>
+      <div class="stat-card stat-card-3">
+        <div class="stat-dot"></div>
+        <h4>↑ 167%</h4>
+        <p>Improvement in mobile conversion rates</p>
+      </div>
+
+      <div class="stat-card stat-card-4">
+        <div class="stat-dot"></div>
+        <h4>Top 3</h4>
+        <p>Google rankings for competitive local keywords</p>
       </div>
 
     </div>
