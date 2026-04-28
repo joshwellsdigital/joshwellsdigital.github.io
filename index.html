@@ -60,7 +60,7 @@
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
     transition: background-color 0.3s ease, color 0.3s ease;
-   overflow-X:hidden;
+    overflow-x: hidden;
   }
 
   /* Star Particles */
@@ -124,7 +124,6 @@
   .nav-links-desktop { list-style: none; display: flex; gap: 54px; align-items: center; }
   .nav-links-desktop li { position: relative; }
   .nav-links-desktop a { font-size: 14px; letter-spacing: 0.15rem; color: #b1b1b1; text-decoration: none; transition: color 0.3s; }
-  .chevron--01 { display: inline-block; width: 15px; height: 48px; vertical-align: middle; stroke: #a6a6a6; stroke-width: 1.5; position: absolute; left: 3px; top: -12.5px; opacity: .65; }
   .nav-links-desktop a:hover { color: var(--c-accent); }
   
   .submenu-item { position: relative; }
@@ -182,7 +181,7 @@
   .back-to-top.show { opacity: 1; visibility: visible; }
 
   /* Hero */
-  .hero { padding: 152px 60px 80px; max-width: 1058px;height: 100vh; position: relative; z-index: 1; justify-content: center; display: flex; flex-direction: column; margin: 0 auto; text-align: center; align-items: center; }
+  .hero { padding: 152px 60px 80px; max-width: 1058px; min-height: 100vh; position: relative; z-index: 1; justify-content: center; display: flex; flex-direction: column; margin: 0 auto; text-align: center; align-items: center; }
   .hero-eyebrow { font-size: 11px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
   .hero h1 { font-size: clamp(36px, 5vw, 62px); font-weight: 500; line-height: 1.15; margin-bottom: 24px; }
   .hero h1 em { font-style: normal; font-weight: 500; color: var(--c-accent); }
@@ -191,14 +190,10 @@
   .hero-cta:hover { transform: translateY(-3px) scale(1.04); background: #c19a53; color: #fff; }
   .hero-cta i { transition: transform 0.3s ease; }
   .hero-cta:hover i { transform: translateY(2px); }
-.skill-item > p {
-    font-size: .8rem;
-    padding-top: 6px;
-    color: #7f7f57;
-    font-weight: 500;
-}
+  .skill-item > p { font-size: .8rem; padding-top: 6px; color: #7f7f57; font-weight: 500; }
+  
   /* Stats Bar */
-  .stats-bar { display: flex; gap: 48px; padding: 36px 60px; border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border); margin-bottom: 80px; justify-content: center; }
+  .stats-bar { display: flex; gap: 48px; padding: 36px 60px; border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border); margin-bottom: 80px; justify-content: center; flex-wrap: wrap; }
   .stat { text-align: center; }
   .stat-num { font-size: 28px; font-weight: 200; color: var(--c-text); }
   .stat-num span { color: var(--c-accent); }
@@ -208,7 +203,6 @@
   .section-header { padding: 0 60px; margin-bottom: 48px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
   .section-tag { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
   .section-header h2 { font-size: clamp(22px, 3.5vw, 45px); font-weight: 600; }
-  .pricing-section h2 { font-size: clamp(22px, 3.25vw, 45px); font-weight: 600; text-align: center; }
   .section-header p { font-size: 15px; color: var(--c-muted); margin-top: 12px; max-width: 480px; line-height: 1.6; }
 
   .fade-up-headline { animation: headlineFadeUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards; }
@@ -221,36 +215,27 @@
 
   .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 0 60px; margin-bottom: 60px; }
   @media (max-width: 1000px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 700px) { .portfolio-grid { grid-template-columns: 1fr; padding: 0 24px; } .nav-cta {
- 
-    padding: 8px 6px;
-   
-    font-size: 9px;
-   
-    width: 79px;
-    text-align: center;
-    margin: 0;
-}.nav-logo {
-    font-size: 16px;
- 
-}
-  .hero-eyebrow  {line-height: 1.7;}                         
-                             .stats-bar {
-
-    flex-direction: column;
-}}
+  @media (max-width: 700px) { 
+    .portfolio-grid { grid-template-columns: 1fr; padding: 0 24px; } 
+    .nav-cta { padding: 8px 6px; font-size: 9px; width: 79px; text-align: center; margin: 0; }
+    .nav-logo { font-size: 16px; }
+    .hero-eyebrow { line-height: 1.7; }                         
+    .stats-bar { flex-direction: column; }
+    .filter-tabs { padding: 0 24px 24px; }
+    .section-header { padding: 0 24px; }
+  }
 
   .portfolio-card { background: var(--c-card); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid var(--c-border); opacity: 0; transform: translateY(20px); }
   .portfolio-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; }
   .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px var(--c-card-shadow); border-color: var(--c-accent); }
-  .card-image { width: 100%; aspect-ratio: 2/1; display: block; transition: transform 0.4s; }
+  .card-image { width: 100%; aspect-ratio: 2/1; object-fit: cover; display: block; transition: transform 0.4s; }
   .portfolio-card:hover .card-image { transform: scale(1.03); }
   .card-info { padding: 18px 20px 22px; background: var(--c-card); }
   .card-type { font-size: 9px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 8px; }
   .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--c-text); }
   .card-desc { font-size: 12px; color: var(--c-muted); line-height: 1.5; margin-bottom: 16px; }
 
-  /* About & Pricing & FAQ (styles kept compact) */
+  /* About & Pricing & FAQ */
   .about-section { padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; border-top: 1px solid var(--c-border); }
   @media (max-width: 780px) { .about-section { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; } }
   .about-left h3 { font-size: 33px; font-weight: 600; line-height: 1.4; margin-bottom: 20px; }
@@ -259,27 +244,13 @@
   .skill-item { border: 1px solid var(--c-border); border-radius: var(--radius); padding: 16px; background: var(--c-surface); }
   .skill-item i { font-size: 18px; color: var(--c-accent); margin-bottom: 10px; }
   .tag { background: var(--c-tag); color: var(--c-tag-text); font-size: 9px; padding: 4px 10px; border-radius: 2px; }
-  .pricing-section, .faq-section { padding: 80px 60px; border-top: 1px solid var(--c-border); }
-  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; margin-top: 48px; }
-  .pricing-card { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: 16px; padding: 32px 24px; }
-  .pricing-card.featured { border-color: var(--c-accent); background: rgba(212,175,106,0.05); }
-  .pricing-price { font-size: 42px; font-weight: 300; margin: 16px 0 8px; }
-  .pricing-features { list-style: none; margin: 24px 0 32px; display: flex; flex-direction: column; gap: 12px; }
-  .pricing-features li { font-size: 12px; color: var(--c-muted); display: flex; align-items: center; gap: 10px; }
-  .pricing-btn { display: block; text-align: center; padding: 12px; border: 1px solid var(--c-accent); color: var(--c-accent); text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 30px; }
+  .faq-section { padding: 80px 60px; border-top: 1px solid var(--c-border); }
   .faq-grid { max-width: 800px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 16px; }
   .faq-item { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: 12px; overflow: hidden; }
   .faq-question { padding: 18px 24px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
   .faq-answer { max-height: 0; padding: 0 24px; overflow: hidden; transition: 0.35s; color: var(--c-muted); font-size: 13px; }
   .faq-item.active .faq-answer { max-height: 150px; padding: 0 24px 20px; }
-  .contact-section {
-    padding: 80px 60px;
-    border-top: 1px solid var(--c-border);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 17px 8px;
-}
+  .contact-section { padding: 80px 60px; border-top: 1px solid var(--c-border); text-align: center; display: flex; flex-direction: column; gap: 17px 8px; }
   .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
   .contact-link { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--c-border); color: var(--c-text); font-size: 11px; letter-spacing: 0.15em; text-decoration: none; padding: 12px 24px; transition: 0.3s; }
   footer { padding: 28px 60px; border-top: 1px solid var(--c-border); display: flex; justify-content: center; font-size: 11px; color: var(--c-muted); flex-wrap: wrap; }
@@ -288,7 +259,7 @@
     nav { padding: 18px 24px; }
     .nav-links-desktop { display: none; }
     .menu-toggle { display: block; }
-    .hero, .stats-bar, .section-header, .filter-tabs, .pricing-section, .faq-section, .contact-section { padding-left: 24px; padding-right: 24px; }
+    .hero, .stats-bar, .section-header, .filter-tabs, .faq-section, .contact-section { padding-left: 24px; padding-right: 24px; }
     .portfolio-grid { padding: 0 24px; }
     footer { padding: 24px; flex-direction: column; text-align: center; }
   }
@@ -306,9 +277,9 @@
   <a href="#" class="nav-logo">Josh<span>.</span>Wells</a>
   <ul class="nav-links-desktop">
     <li><a href="#portfolio">Work</a></li>
-    <li><a href="#about">About </a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#faq">FAQ</a></li>
-   <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
   <div style="display: flex; gap: 18px; align-items: center;">
     <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
@@ -322,12 +293,10 @@
   <button class="close-menu-btn" id="closeMenuBtn"></button>
   <div style="flex:1">
     <ul class="mobile-nav-list">
-      <!-- <li class="mobile-nav-item"><a href="#home" class="mobile-nav-link">Home</a></li> -->
       <li class="mobile-nav-item"><a href="#portfolio" class="mobile-nav-link">Work</a></li>
       <li class="mobile-nav-item"><a href="#about" class="mobile-nav-link">About</a></li>
-      <!-- <li class="mobile-nav-item"><a href="#pricing" class="mobile-nav-link">Pricing</a></li> -->
       <li class="mobile-nav-item"><a href="#faq" class="mobile-nav-link">FAQ</a></li>
-     <li class="mobile-nav-item"><a href="#contact" class="mobile-nav-link">Contact</a></li>
+      <li class="mobile-nav-item"><a href="#contact" class="mobile-nav-link">Contact</a></li>
     </ul>
     <a href="#contact" class="mobile-cta">Let's Talk</a>
   </div>
@@ -336,41 +305,11 @@
 <button class="back-to-top" id="backToTop">↑</button>
 
 <section class="hero" id="home">
-  <div data-aos="fade-up" data-aos-delay="100" class="hero-eyebrow">Web Design - Digital Marketing - Seo Strategist</div>
+  <div data-aos="fade-up" data-aos-delay="100" class="hero-eyebrow">Web Design - Digital Marketing - SEO Strategist</div>
   <h1 data-aos="fade-up">Crafting digital experiences for <em>service-based</em> businesses</h1>
   <p data-aos="fade-up">Building fast, clean, conversion focused websites for home service companies across Florida. Every project is designed to rank, convert, and impress.</p>
   <a data-aos="fade-up" href="#portfolio" class="hero-cta"><i class="fa-solid fa-arrow-down"></i> View Portfolio</a>
 </section>
-<style>
-  .hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 14px 22px;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-
-  color: #fff;
-  background: #d4af6a;
-
-  border-radius: 10px;
-
-  transition: 
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease,
-    background 0.25s ease;
-
-  /* box-shadow: 0 6px 18px rgba(212, 175, 106, 0.3); */
-}
-[data-aos].aos-animate.hero-cta:hover {
-  transform: translateY(-3px) scale(1.04);
-  background: #c19a53;
-  /* box-shadow: 0 12px 28px rgba(212, 175, 106, 0.4); */
-  color: #fff;
-}
-</style>
 
 <div class="stats-bar">
   <div class="stat"><div class="stat-num">200<span>+</span></div><div class="stat-label">Websites Built</div></div>
@@ -378,159 +317,28 @@
   <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
   <div class="stat"><div class="stat-num">4.9<span>★</span></div><div class="stat-label">Client Rating</div></div>
 </div>
-<script>
-  (function() {
-    // Wait for the DOM to be fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      
-      // Find all stat number containers
-      const statElements = document.querySelectorAll('.stat-num');
-      
-      // Store original target values per element
-      const statsData = [];
-      
-      statElements.forEach(el => {
-        // Get the raw text content (e.g., "200+", "175+", "100%", "4.9★")
-        let rawText = el.innerText.trim();
-        
-        let targetNumber = 0;
-        let suffix = '';
-        let prefix = '';
-        let isPercentage = false;
-        let isStarRating = false;
-        
-        // Determine type and extract number
-        if (rawText.includes('%')) {
-          // Handle "100%"
-          targetNumber = parseFloat(rawText.replace('%', ''));
-          suffix = '%';
-          isPercentage = true;
-        } 
-        else if (rawText.includes('★')) {
-          // Handle "4.9★"
-          targetNumber = parseFloat(rawText.replace('★', ''));
-          suffix = '★';
-          isStarRating = true;
-        }
-        else if (rawText.includes('+')) {
-          // Handle "200+" or "175+"
-          targetNumber = parseFloat(rawText.replace('+', ''));
-          suffix = '+';
-        }
-        else {
-          // Fallback for plain numbers (just in case)
-          targetNumber = parseFloat(rawText);
-          suffix = '';
-        }
-        
-        // Store initial state
-        statsData.push({
-          element: el,
-          targetNumber: targetNumber,
-          suffix: suffix,
-          isPercentage: isPercentage,
-          isStarRating: isStarRating,
-          animated: false,
-          currentNumber: 0
-        });
-        
-        // Set initial display to 0 (so it counts up from 0)
-        if (!isStarRating) {
-          el.innerText = '0' + suffix;
-        } else {
-          el.innerText = '0' + suffix;
-        }
-      });
-      
-      // Animation function (requestAnimationFrame smooth counting)
-      function animateNumber(stat, duration = 1800) {
-        const start = performance.now();
-        const startValue = 0;
-        const endValue = stat.targetNumber;
-        const element = stat.element;
-        const suffix = stat.suffix;
-        const isStar = stat.isStarRating;
-        
-        function update(currentTime) {
-          const elapsed = currentTime - start;
-          let progress = Math.min(1, elapsed / duration);
-          // Easing for smoother feel
-          const easeOutQuad = 1 - (1 - progress) * (1 - progress);
-          const current = Math.floor(easeOutQuad * endValue);
-          
-          if (isStar) {
-            // Keep one decimal for star rating (4.9)
-            const decimalValue = (easeOutQuad * endValue).toFixed(1);
-            element.innerText = decimalValue + suffix;
-          } else if (suffix === '%') {
-            element.innerText = Math.floor(current) + suffix;
-          } else {
-            element.innerText = Math.floor(current) + suffix;
-          }
-          
-          if (progress < 1) {
-            requestAnimationFrame(update);
-          } else {
-            // Final set to exact target
-            if (isStar) {
-              element.innerText = endValue.toFixed(1) + suffix;
-            } else {
-              element.innerText = endValue + suffix;
-            }
-            stat.animated = true;
-          }
-        }
-        
-        requestAnimationFrame(update);
-      }
-      
-      // Setup Intersection Observer
-      const statsSection = document.querySelector('.stats-bar');
-      
-      if (!statsSection) {
-        console.warn('Stats section (.stats-bar) not found');
-        return;
-      }
-      
-      const observer = new IntersectionObserver((entries, observerInstance) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Start animation for each stat that hasn't been animated yet
-            statsData.forEach(stat => {
-              if (!stat.animated) {
-                animateNumber(stat);
-              }
-            });
-            // Once all stats started, unobserve to prevent re-trigger (optional)
-            observerInstance.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.3 }); // Trigger when 30% of stats-bar is visible
-      
-      observer.observe(statsSection);
-      
-    });
-  })();
-</script>
+
 <div id="portfolio">
   <div class="section-header" id="dynamicHeader">
-    <div class="section-tag" id="dynamicEyebrow">Example Work</div>
+    <div class="section-tag" id="dynamicEyebrow">Selected Work</div>
     <h2 id="dynamicHeadline">Florida Service<br>Business Websites</h2>
-    <p id="dynamicSubhead">Websites built for service companies across Florida</p>
+    <p id="dynamicSubhead">Real, top-ranking service companies across Florida — built to dominate local search.</p>
   </div>
-  <!-- <div class="filter-tabs" id="filterTabs">
+  <div class="filter-tabs" id="filterTabs">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="hvac">HVAC</button>
     <button class="filter-btn" data-filter="roofing">Roofing</button>
     <button class="filter-btn" data-filter="electric">Electrical</button>
- 
-  </div> -->
+    <button class="filter-btn" data-filter="title">Title</button>
+    <button class="filter-btn" data-filter="saas">SaaS</button>
+    <button class="filter-btn" data-filter="fitness">Fitness</button>
+  </div>
   <div class="portfolio-grid" id="portfolioGrid"></div>
 </div>
 
 <section id="about" class="about-section">
   <div class="about-left">
-    <div class="section-tag" style="margin-bottom:16px;">About </div>
+    <div class="section-tag" style="margin-bottom:16px;">About</div>
     <h3>Building websites that work as hard as your business does</h3>
     <p>Creating performance focused web design and development SEO positioning for service based businesses — the plumbers, roofers, electricians, and landscapers who need a site that ranks on Google, loads fast, and turns visitors into phone calls.</p>
     <p>Every project is hand-coded for performance, mobile-first, and crafted with the local SEO strategy baked in from day one. No templates. No bloat.</p>
@@ -539,61 +347,21 @@
   <div class="about-right">
     <div class="section-tag" style="margin-bottom:16px;">Skills & Services</div>
     <div class="skills-grid">
-   <div class="skill-item">
-  <i class="fa-solid fa-pen-ruler"></i>
-  <h4>Web Design</h4>
-  <p>Designed with purpose</p>
-</div>
-
-<div class="skill-item">
-  <i class="fa-solid fa-code"></i>
-  <h4>Web Development</h4>
-  <p>Built to convert</p>
-</div>
-
-<div class="skill-item">
-  <i class="fa-solid fa-magnifying-glass-location"></i>
-  <h4>Local SEO</h4>
-  <p>Leads from search</p>
-</div>
-
-<div class="skill-item">
-  <i class="fa-solid fa-mobile-screen"></i>
-  <h4>User Experience</h4>
-  <p>Seamless on any device</p>
-</div>
-
-<div class="skill-item">
-  <i class="fa-solid fa-gauge-high"></i>
-  <h4>Performance</h4>
-  <p>Fast. Smooth. Reliable.</p>
-</div>
-
-<div class="skill-item">
-  <i class="fa-solid fa-chart-line"></i>
-  <h4>Growth Focused</h4>
-  <p>Built to scale with you</p>
-</div>
+      <div class="skill-item"><i class="fa-solid fa-pen-ruler"></i><h4>Web Design</h4><p>Designed with purpose</p></div>
+      <div class="skill-item"><i class="fa-solid fa-code"></i><h4>Web Development</h4><p>Built to convert</p></div>
+      <div class="skill-item"><i class="fa-solid fa-magnifying-glass-location"></i><h4>Local SEO</h4><p>Leads from search</p></div>
+      <div class="skill-item"><i class="fa-solid fa-mobile-screen"></i><h4>User Experience</h4><p>Seamless on any device</p></div>
+      <div class="skill-item"><i class="fa-solid fa-gauge-high"></i><h4>Performance</h4><p>Fast. Smooth. Reliable.</p></div>
+      <div class="skill-item"><i class="fa-solid fa-chart-line"></i><h4>Growth Focused</h4><p>Built to scale with you</p></div>
     </div>
   </div>
 </section>
-
-<!-- <section id="pricing" class="pricing-section">
-  <div class="section-tag" style="justify-content:center; margin-bottom:16px;">Investment</div>
-  <h2>Transparent pricing.<br>No surprises.</h2>
-  <div class="pricing-grid">
-    <div class="pricing-card"><div class="pricing-popular">Starter</div><div class="pricing-price"><sup>$</sup>1,200</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Custom design</li><li><i class="fa-solid fa-check"></i>Mobile-first</li><li><i class="fa-solid fa-check"></i>Basic SEO</li><li><i class="fa-solid fa-check"></i>30-day support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
-    <div class="pricing-card featured"><div class="pricing-popular">Most Popular</div><div class="pricing-price"><sup>$</sup>2,800</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Everything in Starter</li><li><i class="fa-solid fa-check"></i>Local SEO</li><li><i class="fa-solid fa-check"></i>Lead capture page</li><li><i class="fa-solid fa-check"></i>90-day support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
-    <div class="pricing-card"><div class="pricing-popular">Authority</div><div class="pricing-price"><sup>$</sup>5,500</div><ul class="pricing-features"><li><i class="fa-solid fa-check"></i>Everything in Growth</li><li><i class="fa-solid fa-check"></i>Ongoing SEO</li><li><i class="fa-solid fa-check"></i>Monthly reports</li><li><i class="fa-solid fa-check"></i>Priority support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
-  </div>
-</section> -->
 
 <section id="faq" class="faq-section">
   <div class="section-tag" style="justify-content:center; margin-bottom:16px;">Got questions?</div>
   <h2 style="text-align:center;">Frequently asked questions</h2>
   <div class="faq-grid">
-    <div class="faq-item"><div class="faq-question"><span>How long does a typical website take?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Most projects take 3–5 weeks.</div></div>
-    <!-- <div class="faq-item"><div class="faq-question"><span>Do you offer payment plans?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Yes. 50% deposit, 25% at design approval, 25% at launch.</div></div> -->
+    <div class="faq-item"><div class="faq-question"><span>How long does a typical website take?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Most projects take 3-5 weeks.</div></div>
     <div class="faq-item"><div class="faq-question"><span>Will my website be mobile-friendly?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Absolutely. Fully responsive.</div></div>
     <div class="faq-item"><div class="faq-question"><span>Do you provide ongoing support?</span><i class="fa-solid fa-plus"></i></div><div class="faq-answer">Yes, each package includes support.</div></div>
   </div>
@@ -609,7 +377,7 @@
   </div>
 </section>
 
-<footer><span>© 2026 Josh Wells — Digital Marketing | Web Design | Web Development | SEO Strategy</span><span></span></footer>
+<footer><span>© 2026 Josh Wells — Digital Marketing | Web Design | Web Development | SEO Strategy</span></footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
@@ -617,56 +385,143 @@
   
   // Stars
   const starsDiv = document.getElementById('stars');
-  for(let i=0;i<120;i++){let s=document.createElement('div');s.className='star';let size=0.8+Math.random()*2.2;s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;--d:${3+Math.random()*6}s;--dl:${Math.random()*8}s;--op:${0.2+Math.random()*0.7}`;starsDiv.appendChild(s);}
+  for(let i = 0; i < 120; i++) {
+    let s = document.createElement('div');
+    s.className = 'star';
+    let size = 0.8 + Math.random() * 2.2;
+    s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;width:${size}px;height:${size}px;--d:${3 + Math.random() * 6}s;--dl:${Math.random() * 8}s;--op:${0.2 + Math.random() * 0.7}`;
+    starsDiv.appendChild(s);
+  }
 
   // Navbar shrink
   const nav = document.getElementById('navbar');
-  window.addEventListener('scroll',()=>{if(window.scrollY>50) nav.classList.add('shrink'); else nav.classList.remove('shrink');});
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 50) nav.classList.add('shrink'); 
+    else nav.classList.remove('shrink');
+  });
+  
   const backBtn = document.getElementById('backToTop');
-  window.addEventListener('scroll',()=>{if(window.scrollY>400) backBtn.classList.add('show'); else backBtn.classList.remove('show');});
-  backBtn.onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 400) backBtn.classList.add('show'); 
+    else backBtn.classList.remove('show');
+  });
+  backBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
   // Theme Toggle
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
-  function setTheme(isDark) { if(isDark) { document.body.classList.remove('light-mode'); themeIcon.className = 'fa-solid fa-moon'; localStorage.setItem('theme', 'dark'); } else { document.body.classList.add('light-mode'); themeIcon.className = 'fa-solid fa-sun'; localStorage.setItem('theme', 'light'); } }
+  function setTheme(isDark) { 
+    if(isDark) { 
+      document.body.classList.remove('light-mode'); 
+      themeIcon.className = 'fa-solid fa-moon'; 
+      localStorage.setItem('theme', 'dark'); 
+    } else { 
+      document.body.classList.add('light-mode'); 
+      themeIcon.className = 'fa-solid fa-sun'; 
+      localStorage.setItem('theme', 'light'); 
+    } 
+  }
   const savedTheme = localStorage.getItem('theme');
-  if(savedTheme === 'light') setTheme(false); else setTheme(true);
-  themeToggle.addEventListener('click', () => { const isDark = !document.body.classList.contains('light-mode'); setTheme(!isDark); });
+  if(savedTheme === 'light') setTheme(false); 
+  else setTheme(true);
+  themeToggle.addEventListener('click', () => { 
+    const isDark = !document.body.classList.contains('light-mode'); 
+    setTheme(!isDark); 
+  });
 
   // Mobile menu
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobileMenu');
   const overlay = document.getElementById('overlayBlur');
   const closeMenuBtn = document.getElementById('closeMenuBtn');
-  function openMenu(){ mobileMenu.classList.add('open'); overlay.classList.add('active'); menuToggle.classList.add('active'); document.body.style.overflow='hidden'; }
-  function closeMenuFunc(){ mobileMenu.classList.remove('open'); overlay.classList.remove('active'); menuToggle.classList.remove('active'); document.body.style.overflow=''; }
+  function openMenu() { 
+    mobileMenu.classList.add('open'); 
+    overlay.classList.add('active'); 
+    menuToggle.classList.add('active'); 
+    document.body.style.overflow = 'hidden'; 
+  }
+  function closeMenuFunc() { 
+    mobileMenu.classList.remove('open'); 
+    overlay.classList.remove('active'); 
+    menuToggle.classList.remove('active'); 
+    document.body.style.overflow = ''; 
+  }
   menuToggle.onclick = openMenu;
   closeMenuBtn.onclick = closeMenuFunc;
   overlay.onclick = closeMenuFunc;
-  document.querySelectorAll('.mobile-nav-link[href^="#"]').forEach(l=>l.addEventListener('click',closeMenuFunc));
-  const subToggle = document.getElementById('mobileSubToggle');
-  const subMenu = document.getElementById('mobileSubmenu');
-  let subOpen=false;
-  subToggle.onclick = (e)=>{ e.stopPropagation(); subOpen=!subOpen; if(subOpen){ subMenu.classList.add('open-sub'); subToggle.textContent='−'; } else { subMenu.classList.remove('open-sub'); subToggle.textContent='+'; }};
-  document.querySelectorAll('.mobile-submenu a').forEach(a=>a.addEventListener('click',closeMenuFunc));
+  document.querySelectorAll('.mobile-nav-link[href^="#"]').forEach(l => l.addEventListener('click', closeMenuFunc));
 
   // FAQ
-  document.querySelectorAll('.faq-item').forEach(item=>{ item.querySelector('.faq-question').addEventListener('click',()=>{ const active=item.classList.contains('active'); document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active')); if(!active) item.classList.add('active'); }); });
+  document.querySelectorAll('.faq-item').forEach(item => { 
+    item.querySelector('.faq-question').addEventListener('click', () => { 
+      const active = item.classList.contains('active'); 
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active')); 
+      if(!active) item.classList.add('active'); 
+    }); 
+  });
 
-  // Portfolio Data - includes a custom "sections" tab with lightbox images
+  // ========== FIXED PORTFOLIO DATA ==========
   const portfolioData = [
-      { title: "First Title Source", category: "title", type: "Title Company", city: "Clearwater, FL", desc: "14 yrs Serving Clearwater - 70,000+ Properties Closed", link: "https://firsttitlesource.com", image: "fts44.png", isLightbox: false },
-
-    { title: "Ferran Services", category: "hvac", type: "HVAC Repair", city: "Orlando, FL", desc: "Trusted since 1910. Top-rated AC repair.", link: "https://ferran-services.com/", image: "fer43.png", isLightbox: false },
-    //{ title: "NEXGEN Roofing", category: "roofing", type: "Roofing Company", city: "Jacksonville, FL", desc: "Owens Corning Platinum Preferred.", link: "https://www.nexgenfl.com/", image: "nex4.png", isLightbox: false },
-    { title: "Brightwire Electric", category: "electric", type: "Electrical Services", city: "Largo, FL", desc: "Family-owned since 1970.", link: "https://brightwireelectric.com/", image: "bwe9.png", isLightbox: false },
-
-    { title: "Avenue Roofing", category: "roofing", type: "Roofing Contractor", city: "Jacksonville, FL", desc: "Top 1% Florida contractors.", link: "https://avenueroofing.com/", image: "aver56.png", isLightbox: false },
-       { title: "Saas ", category: "saas", type: "Saas Product", city: "Tampa, FL", desc: "Tampa Saas Product Page.", link: "https://titleedgepro.com/demos/saas/index", image: "sass4.png", isLightbox: false },
-
-   { title: "Fitnezz ", category: "fitness", type: "Health Wellness", city: "Orlando, FL", desc: "Central Florida's Fitness leader.", link: "https://titleedgepro.com/demos/fit/index", image: "fit4.png", isLightbox: false },
-
+    { 
+      title: "First Title Source", 
+      category: "title", 
+      type: "Title Company", 
+      city: "Clearwater, FL", 
+      desc: "14 yrs Serving Clearwater - 70,000+ Properties Closed", 
+      link: "https://firsttitlesource.com", 
+      image: "https://placehold.co/600x400/1a1a1a/d4af6a?text=First+Title+Source", 
+      isLightbox: false 
+    },
+    { 
+      title: "Ferran Services", 
+      category: "hvac", 
+      type: "HVAC Repair", 
+      city: "Orlando, FL", 
+      desc: "Trusted since 1910. Top-rated AC repair.", 
+      link: "https://ferran-services.com/", 
+      image: "https://placehold.co/600x400/1a1a1a/d4af6a?text=Ferran+Services", 
+      isLightbox: false 
+    },
+    { 
+      title: "Brightwire Electric", 
+      category: "electric", 
+      type: "Electrical Services", 
+      city: "Largo, FL", 
+      desc: "Family-owned since 1970.", 
+      link: "https://brightwireelectric.com/", 
+      image: "https://placehold.co/600x400/1a1a1a/d4af6a?text=Brightwire+Electric", 
+      isLightbox: false 
+    },
+    { 
+      title: "Avenue Roofing", 
+      category: "roofing", 
+      type: "Roofing Contractor", 
+      city: "Jacksonville, FL", 
+      desc: "Top 1% Florida contractors.", 
+      link: "https://avenueroofing.com/", 
+      image: "https://placehold.co/600x400/1a1a1a/d4af6a?text=Avenue+Roofing", 
+      isLightbox: false 
+    },
+    { 
+      title: "SaaS Product", 
+      category: "saas", 
+      type: "SaaS Product", 
+      city: "Tampa, FL", 
+      desc: "Tampa SaaS Product Page.", 
+      link: "https://titleedgepro.com/demos/saas/index", 
+      image: "https://placehold.co/600x400/1a1a1a/d4af6a?text=SaaS+Product", 
+      isLightbox: false 
+    },
+    { 
+      title: "Fitnezz", 
+      category: "fitness", 
+      type: "Health Wellness", 
+      city: "Orlando, FL", 
+      desc: "Central Florida's Fitness leader.", 
+      link: "https://titleedgepro.com/demos/fit/index", 
+      image: "https://placehold.co/600x400/1a1a1a/d4af6a?text=Fitnezz", 
+      isLightbox: false 
+    }
   ];
 
   const headlineMap = {
@@ -674,14 +529,14 @@
     hvac: { eyebrow: "Climate Control", headline: "HVAC & Mechanical<br>Service Demos", subhead: "High-converting websites for heating & cooling companies." },
     roofing: { eyebrow: "Above & Beyond", headline: "Roofing Contractor<br>Portfolio Previews", subhead: "Showcase roofing projects and estimates." },
     electric: { eyebrow: "Power Up", headline: "Electrical Services<br>Live Previews", subhead: "Professional electrician websites with emergency callouts." },
-    pest: { eyebrow: "Protect & Defend", headline: "Pest Control<br>Website Demos", subhead: "Trust-building designs for pest management." },
-    lawn: { eyebrow: "Green Thumb", headline: "Lawn & Pool<br>Service Showcases", subhead: "Seasonal service promotions and local SEO." },
-    sections: { eyebrow: "📁 Custom Gallery", headline: "Your Custom Content<br>Showcase", subhead: "Replace these placeholder images with your own SEO results, design mockups, or case study screenshots. Click any card to view full size." }
+    title: { eyebrow: "Title Services", headline: "Title Company<br>Websites", subhead: "Trust-building designs for title companies." },
+    saas: { eyebrow: "Software", headline: "SaaS Product<br>Showcases", subhead: "Modern SaaS product pages." },
+    fitness: { eyebrow: "Health & Wellness", headline: "Fitness<br>Websites", subhead: "Engaging fitness brand experiences." }
   };
 
   function updateHeadlineWithFade(tabId) {
     const h = headlineMap[tabId];
-    if(h){
+    if(h) {
       const eyebrow = document.getElementById('dynamicEyebrow');
       const headline = document.getElementById('dynamicHeadline');
       const subhead = document.getElementById('dynamicSubhead');
@@ -714,23 +569,37 @@
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
   }
-  document.querySelector('.close-lightbox').onclick = closeLightbox;
-  lightbox.onclick = (e) => { if(e.target === lightbox) closeLightbox(); };
+  if(document.querySelector('.close-lightbox')) {
+    document.querySelector('.close-lightbox').onclick = closeLightbox;
+  }
+  if(lightbox) {
+    lightbox.onclick = (e) => { if(e.target === lightbox) closeLightbox(); };
+  }
 
   function renderCards(filter = "all") {
     const filtered = filter === "all" ? portfolioData : portfolioData.filter(item => item.category === filter);
     const grid = document.getElementById('portfolioGrid');
+    if(!grid) {
+      console.error('Portfolio grid element not found!');
+      return;
+    }
+    
+    if(filtered.length === 0) {
+      grid.innerHTML = '<div style="text-align:center; padding:60px; color:var(--c-muted);">No items found in this category.</div>';
+      return;
+    }
+    
     grid.innerHTML = filtered.map((item) => {
       const onClickAttr = item.isLightbox 
-        ? `onclick="event.stopPropagation(); openLightbox('${item.lightboxImg || item.image}')"` 
+        ? `onclick="openLightbox('${item.lightboxImg || item.image}')"` 
         : `onclick="window.open('${item.link}', '_blank')"`;
       return `
         <div class="portfolio-card" ${onClickAttr}>
-          <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy">
+          <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.src='https://placehold.co/600x400/333333/d4af6a?text=Image+Not+Found'">
           <div class="card-info">
             <div class="card-type">${item.type}</div>
             <div class="card-title">${item.title}</div>
-            <div class="card-desc">${item.desc}</div>
+            <div class="card-desc">${item.city} • ${item.desc}</div>
           </div>
         </div>
       `;
@@ -738,6 +607,7 @@
     applyStaggeredReveal(grid);
   }
 
+  // Initialize filter buttons
   const filterBtns = document.querySelectorAll('.filter-btn');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -749,17 +619,18 @@
     });
   });
 
+  // Initial render
   renderCards('all');
 
-  // Smooth anchor scroll with offset (80px padding above section)
+  // Smooth anchor scroll with offset
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const id = this.getAttribute('href');
       if(id === "#" || id === "") return;
       const target = document.querySelector(id);
-      if(target) {
+      if(target && id !== "#portfolio") {
         e.preventDefault();
-        const offset = 80; // padding above the eyebrow/section
+        const offset = 80;
         const elementPosition = target.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
         window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
