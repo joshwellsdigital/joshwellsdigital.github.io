@@ -642,7 +642,7 @@
       city: "", 
       desc: "Your Trusted Tallahassee Plumber", 
       link: "https://lancemaxwellplumbing.com/", 
-      image: "bwe9.png", 
+      image: "plumb32.png", 
       isLightbox: false 
     },
     { 
@@ -729,6 +729,18 @@
     lightbox.onclick = (e) => { if(e.target === lightbox) closeLightbox(); };
   }
 
+  // Function to open link with nofollow attribute (undetectable backlink)
+  function openNofollowLink(url) {
+    const link = document.createElement('a');
+    link.href = url;
+    link.rel = 'nofollow';
+    link.target = '_blank';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   function renderCards(filter = "all") {
     const filtered = filter === "all" ? portfolioData : portfolioData.filter(item => item.category === filter);
     const grid = document.getElementById('portfolioGrid');
@@ -743,19 +755,33 @@
     }
     
     grid.innerHTML = filtered.map((item) => {
-      const onClickAttr = item.isLightbox 
-        ? `onclick="openLightbox('${item.lightboxImg || item.image}')"` 
-        : `onclick="window.open('${item.link}', '_blank')"`;
-      return `
-        <div class="portfolio-card" ${onClickAttr}>
-          <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.src='https://placehold.co/600x400/333333/d4af6a?text=Image+Not+Found'">
-          <div class="card-info">
-            <div class="card-type">${item.type}</div>
-            <div class="card-title">${item.title}</div>
-            <div class="card-desc">${item.city} • ${item.desc}</div>
+      // For lightbox items, use onclick for image preview
+      // For external links, use nofollow approach via JavaScript
+      if (item.isLightbox) {
+        return `
+          <div class="portfolio-card" onclick="openLightbox('${item.lightboxImg || item.image}')">
+            <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.src='https://placehold.co/600x400/333333/d4af6a?text=Image+Not+Found'">
+            <div class="card-info">
+              <div class="card-type">${item.type}</div>
+              <div class="card-title">${item.title}</div>
+              <div class="card-desc">${item.city} • ${item.desc}</div>
+            </div>
           </div>
-        </div>
-      `;
+        `;
+      } else {
+        // Generate a unique function name for this specific link
+        const linkUrl = item.link.replace(/'/g, "\\'");
+        return `
+          <div class="portfolio-card" onclick="(function(u){var a=document.createElement('a');a.href=u;a.rel='nofollow';a.target='_blank';a.style.display='none';document.body.appendChild(a);a.click();document.body.removeChild(a);})('${linkUrl}')">
+            <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.src='https://placehold.co/600x400/333333/d4af6a?text=Image+Not+Found'">
+            <div class="card-info">
+              <div class="card-type">${item.type}</div>
+              <div class="card-title">${item.title}</div>
+              <div class="card-desc">${item.city} • ${item.desc}</div>
+            </div>
+          </div>
+        `;
+      }
     }).join('');
     applyStaggeredReveal(grid);
   }
