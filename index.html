@@ -530,10 +530,10 @@ section#contact h2 {
     </div>
   </div>
 </section>
- <style>
+<style>
 /* =========================
    CENTERED MESSAGING SECTION
-   Between About & Services
+   With Animated Stats
 ========================= */
 #center-message-section {
   padding: 70px 20px;
@@ -544,7 +544,7 @@ section#contact h2 {
 
 /* CONTAINER */
 #center-message-section .center-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -576,11 +576,11 @@ section#contact h2 {
   font-size: 1.1rem;
   line-height: 1.6;
   color: #cbd5e1;
-  max-width: 650px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
-/* OPTIONAL DIVIDER LINE */
+/* DIVIDER LINE */
 #center-message-section .center-divider {
   width: 60px;
   height: 3px;
@@ -589,24 +589,34 @@ section#contact h2 {
   border-radius: 3px;
 }
 
-/* OPTIONAL STATS ROW - 3 columns */
+/* STATS ROW */
 #center-message-section .stats-row {
   display: flex;
   justify-content: center;
-  gap: 60px;
+  gap: 50px;
   margin-top: 48px;
   flex-wrap: wrap;
 }
 
 #center-message-section .stat-item {
   text-align: center;
+  min-width: 140px;
 }
 
 #center-message-section .stat-number {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #d4af37;
   margin-bottom: 8px;
+  display: inline-block;
+}
+
+#center-message-section .stat-symbol {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #d4af37;
+  display: inline-block;
+  margin-left: 2px;
 }
 
 #center-message-section .stat-label {
@@ -616,8 +626,9 @@ section#contact h2 {
   color: #94a3b8;
 }
 
-/* HOVER EFFECT ON STATS */
-#center-message-section .stat-item:hover .stat-number {
+/* HOVER EFFECT */
+#center-message-section .stat-item:hover .stat-number,
+#center-message-section .stat-item:hover .stat-symbol {
   transform: scale(1.05);
   transition: transform 0.3s ease;
 }
@@ -629,11 +640,11 @@ section#contact h2 {
   }
   
   #center-message-section .center-heading {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
   
   #center-message-section .center-subtext {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   
   #center-message-section .stats-row {
@@ -641,7 +652,11 @@ section#contact h2 {
   }
   
   #center-message-section .stat-number {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
+  }
+  
+  #center-message-section .stat-symbol {
+    font-size: 1.5rem;
   }
 }
 </style>
@@ -649,37 +664,93 @@ section#contact h2 {
 <section id="center-message-section">
   <div class="center-container">
     
-    <div class="center-tag">11+ Years of Excellence</div>
+    <div class="center-tag">The ROI You're Looking For</div>
     
     <h2 class="center-heading">
-      Real Results. Real Growth. Real Partnerships.
+      Turning Clicks Into Customers. Visitors Into Revenue.
     </h2>
     
     <p class="center-subtext">
-      Every website I build is crafted with one goal in mind — to help your business win online. 
-      From local visibility to conversion optimization, I focus on what actually drives revenue.
+      Strategic web design, development, and SEO that doesn't just look good — it delivers 
+      measurable business growth. Here's what our clients typically achieve.
     </p>
     
     <div class="center-divider"></div>
     
-    <!-- Optional stats row - shows credibility -->
     <div class="stats-row">
       <div class="stat-item">
-        <div class="stat-number">100+</div>
-        <div class="stat-label">Websites Launched</div>
+        <div class="stat-number" data-target="42">0</div>
+        <div class="stat-symbol">%</div>
+        <div class="stat-label">Higher Conversion Rates</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">11+</div>
-        <div class="stat-label">Years Experience</div>
+        <div class="stat-number" data-target="3">0</div>
+        <div class="stat-symbol">x</div>
+        <div class="stat-label">More Organic Leads</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">99%</div>
-        <div class="stat-label">Client Satisfaction</div>
+        <div class="stat-number" data-target="53">0</div>
+        <div class="stat-symbol">%</div>
+        <div class="stat-label">Faster Load Times</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="187">0</div>
+        <div class="stat-symbol">%</div>
+        <div class="stat-label">Avg. Keyword Ranking Lift</div>
       </div>
     </div>
     
   </div>
 </section>
+
+<script>
+// Scroll-triggered count-up animation
+(function() {
+  const statNumbers = document.querySelectorAll('#center-message-section .stat-number');
+  let animated = false;
+  
+  function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    return rect.top <= windowHeight - 100 && rect.bottom >= 0;
+  }
+  
+  function animateNumbers() {
+    if (animated) return;
+    
+    const section = document.querySelector('#center-message-section');
+    if (!section || !isElementInViewport(section)) return;
+    
+    animated = true;
+    
+    statNumbers.forEach(el => {
+      const target = parseInt(el.getAttribute('data-target'), 10);
+      if (isNaN(target)) return;
+      
+      let current = 0;
+      const increment = target / 50; // smooth animation over ~50 frames
+      const duration = 1500; // 1.5 seconds
+      const stepTime = duration / 50;
+      
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          el.textContent = target;
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(current);
+        }
+      }, stepTime);
+    });
+  }
+  
+  // Check on scroll
+  window.addEventListener('scroll', animateNumbers);
+  window.addEventListener('resize', animateNumbers);
+  // Initial check
+  setTimeout(animateNumbers, 300);
+})();
+</script>
  <style>
 /* =========================
    CENTERED MESSAGING SECTION
