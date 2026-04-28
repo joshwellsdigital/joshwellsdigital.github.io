@@ -317,7 +317,140 @@
   <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
   <div class="stat"><div class="stat-num">4.9<span>★</span></div><div class="stat-label">Client Rating</div></div>
 </div>
-
+<script>
+  (function() {
+    // Wait for the DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // Find all stat number containers
+      const statElements = document.querySelectorAll('.stat-num');
+      
+      // Store original target values per element
+      const statsData = [];
+      
+      statElements.forEach(el => {
+        // Get the raw text content (e.g., "200+", "175+", "100%", "4.9★")
+        let rawText = el.innerText.trim();
+        
+        let targetNumber = 0;
+        let suffix = '';
+        let prefix = '';
+        let isPercentage = false;
+        let isStarRating = false;
+        
+        // Determine type and extract number
+        if (rawText.includes('%')) {
+          // Handle "100%"
+          targetNumber = parseFloat(rawText.replace('%', ''));
+          suffix = '%';
+          isPercentage = true;
+        } 
+        else if (rawText.includes('★')) {
+          // Handle "4.9★"
+          targetNumber = parseFloat(rawText.replace('★', ''));
+          suffix = '★';
+          isStarRating = true;
+        }
+        else if (rawText.includes('+')) {
+          // Handle "200+" or "175+"
+          targetNumber = parseFloat(rawText.replace('+', ''));
+          suffix = '+';
+        }
+        else {
+          // Fallback for plain numbers (just in case)
+          targetNumber = parseFloat(rawText);
+          suffix = '';
+        }
+        
+        // Store initial state
+        statsData.push({
+          element: el,
+          targetNumber: targetNumber,
+          suffix: suffix,
+          isPercentage: isPercentage,
+          isStarRating: isStarRating,
+          animated: false,
+          currentNumber: 0
+        });
+        
+        // Set initial display to 0 (so it counts up from 0)
+        if (!isStarRating) {
+          el.innerText = '0' + suffix;
+        } else {
+          el.innerText = '0' + suffix;
+        }
+      });
+      
+      // Animation function (requestAnimationFrame smooth counting)
+      function animateNumber(stat, duration = 1800) {
+        const start = performance.now();
+        const startValue = 0;
+        const endValue = stat.targetNumber;
+        const element = stat.element;
+        const suffix = stat.suffix;
+        const isStar = stat.isStarRating;
+        
+        function update(currentTime) {
+          const elapsed = currentTime - start;
+          let progress = Math.min(1, elapsed / duration);
+          // Easing for smoother feel
+          const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+          const current = Math.floor(easeOutQuad * endValue);
+          
+          if (isStar) {
+            // Keep one decimal for star rating (4.9)
+            const decimalValue = (easeOutQuad * endValue).toFixed(1);
+            element.innerText = decimalValue + suffix;
+          } else if (suffix === '%') {
+            element.innerText = Math.floor(current) + suffix;
+          } else {
+            element.innerText = Math.floor(current) + suffix;
+          }
+          
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            // Final set to exact target
+            if (isStar) {
+              element.innerText = endValue.toFixed(1) + suffix;
+            } else {
+              element.innerText = endValue + suffix;
+            }
+            stat.animated = true;
+          }
+        }
+        
+        requestAnimationFrame(update);
+      }
+      
+      // Setup Intersection Observer
+      const statsSection = document.querySelector('.stats-bar');
+      
+      if (!statsSection) {
+        console.warn('Stats section (.stats-bar) not found');
+        return;
+      }
+      
+      const observer = new IntersectionObserver((entries, observerInstance) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Start animation for each stat that hasn't been animated yet
+            statsData.forEach(stat => {
+              if (!stat.animated) {
+                animateNumber(stat);
+              }
+            });
+            // Once all stats started, unobserve to prevent re-trigger (optional)
+            observerInstance.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 }); // Trigger when 30% of stats-bar is visible
+      
+      observer.observe(statsSection);
+      
+    });
+  })();
+</script>
 <div id="portfolio">
   <div class="section-header" id="dynamicHeader">
     <div class="section-tag" id="dynamicEyebrow">Selected Work</div>
