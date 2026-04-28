@@ -242,8 +242,34 @@ section#contact h2 {
   .card-type { font-size: 9px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 8px; }
   .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--c-text); }
   .card-desc { font-size: 12px; color: var(--c-muted); line-height: 1.5; margin-bottom: 16px; }
+.about-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
 
-  /* About & Pricing & FAQ */
+.about-cta-btn:hover {
+  background-color: #000000;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+}
+
+/* Optional: active/click effect */
+.about-cta-btn:active {
+  transform: translateY(0px) scale(0.98);
+}
+  /* about & Pricing & FAQ */
   .about-section { padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; border-top: 1px solid var(--c-border); }
   @media (max-width: 780px) { .about-section { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; } }
   .about-left h3 { font-size: 33px; font-weight: 600; line-height: 1.4; margin-bottom: 20px; }
@@ -285,7 +311,7 @@ section#contact h2 {
   <a href="#" class="nav-logo">Josh<span>.</span>Wells</a>
   <ul class="nav-links-desktop">
     <li><a href="#portfolio">Work</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="#about">about</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -302,7 +328,7 @@ section#contact h2 {
   <div style="flex:1">
     <ul class="mobile-nav-list">
       <li class="mobile-nav-item"><a href="#portfolio" class="mobile-nav-link">Work</a></li>
-      <li class="mobile-nav-item"><a href="#about" class="mobile-nav-link">About</a></li>
+      <li class="mobile-nav-item"><a href="#about" class="mobile-nav-link">about</a></li>
       <li class="mobile-nav-item"><a href="#faq" class="mobile-nav-link">FAQ</a></li>
       <li class="mobile-nav-item"><a href="#contact" class="mobile-nav-link">Contact</a></li>
     </ul>
@@ -496,10 +522,10 @@ section#contact h2 {
       <div class="skill-item"><i class="fa-solid fa-chart-line"></i><h4>Growth Engine Ready</h4><p>Built to scale your business</p></div>
     </div>
   </div>
- <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;">
-  <!-- <a href="#work" class="btn-primary">View My Work</a> -->
-  <a href="#contact" class="btn-secondary">Start Growing Your Presence →</a>
-</div>
+ 
+ <div style="margin-top:32px;">
+    <a href="#contact" class="about-cta-btn">Start Growing Your Presence →</a>
+  </div>
 </section>
 
 <section id="faq" class="faq-section">
