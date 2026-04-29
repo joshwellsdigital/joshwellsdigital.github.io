@@ -218,10 +218,11 @@
   .hero-eyebrow {
     font-size: 11px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--c-accent); margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
-    text-shadow: 0 0 20px var(--c-accent-glow);
+    /* text-shadow: 0 0 20px var(--c-accent-glow); */
+   color: #9a9a9a;
   }
   .hero h1 { font-size: clamp(36px, 5vw, 62px); font-weight: 500; line-height: 1.15; margin-bottom: 24px; }
-  .hero h1 em { font-style: normal; font-weight: 500; color: var(--c-accent); text-shadow: 0 0 24px var(--c-accent-glow); }
+  .hero h1 em { font-style: normal; font-weight: 500; color: var(--c-accent);  }
   .hero p { font-size: 16px; font-weight: 300; line-height: 1.8; color: #a4a4a4; max-width: 660px; margin-bottom: 40px; }
   body.light-mode .hero p { color: var(--c-muted); }
 
@@ -423,7 +424,7 @@
   #center-message-section .stat-item { text-align: center; min-width: 140px; }
   #center-message-section .stat-number {
     font-size: 2.5rem; font-weight: 700; color: var(--c-accent);
-    margin-bottom: 8px; display: inline-block; text-shadow: 0 0 18px var(--c-accent-glow);
+    margin-bottom: 8px; display: inline-block; 
   }
   #center-message-section .stat-symbol {
     font-size: 2rem; font-weight: 700; color: var(--c-accent);
@@ -438,7 +439,7 @@
     margin-top: 32px; font-size: 0.95rem; color: var(--c-muted); font-style: italic;
     border-left: 3px solid var(--c-accent); padding-left: 20px; max-width: 500px;
     margin-left: auto; margin-right: auto; text-align: left;
-    box-shadow: -3px 0 12px var(--c-accent-glow);
+    /* box-shadow: -3px 0 12px var(--c-accent-glow); */
   }
   #center-message-section .center-quote-author {
     margin-top: 8px; font-size: 0.8rem; color: var(--c-accent);
