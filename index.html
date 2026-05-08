@@ -770,6 +770,231 @@
     
   </div>
 </section>
+ <style>
+/* =========================
+   CENTERED MESSAGING SECTION
+   With Animated Stats - Dark Background Compatible
+========================= */
+#center-message-section {
+  padding: 70px 20px;
+  background: transparent;
+  text-align: center;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* CONTAINER */
+#center-message-section .center-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* SMALL TAG / LABEL */
+#center-message-section .center-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #2bcdcd 0%, #1a8a8a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  padding: 6px 14px;
+  border-radius: 30px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+/* MAIN HEADING */
+#center-message-section .center-heading {
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+/* SUBHEADING / DESCRIPTION */
+#center-message-section .center-subtext {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+/* DIVIDER LINE */
+#center-message-section .center-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #2bcdcd, #1a8a8a);
+  margin: 32px auto;
+  border-radius: 3px;
+}
+
+/* STATS ROW */
+#center-message-section .stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+
+#center-message-section .stat-item {
+  text-align: center;
+  min-width: 140px;
+}
+
+#center-message-section .stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2bcdcd 0%, #1a8a8a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+#center-message-section .stat-symbol {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2bcdcd 0%, #1a8a8a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  display: inline-block;
+  margin-left: 2px;
+}
+
+#center-message-section .stat-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+}
+
+/* HOVER EFFECT */
+#center-message-section .stat-item:hover .stat-number,
+#center-message-section .stat-item:hover .stat-symbol {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  #center-message-section {
+    padding: 50px 20px;
+  }
+  
+  #center-message-section .center-heading {
+    font-size: 1.6rem;
+  }
+  
+  #center-message-section .center-subtext {
+    font-size: 0.95rem;
+  }
+  
+  #center-message-section .stats-row {
+    gap: 30px;
+  }
+  
+  #center-message-section .stat-number {
+    font-size: 1.8rem;
+  }
+  
+  #center-message-section .stat-symbol {
+    font-size: 1.5rem;
+  }
+}
+</style>
+
+<section id="center-message-section">
+  <div class="center-container">
+    
+    <div class="center-tag">The ROI You're Looking For</div>
+    
+    <h2 class="center-heading">Turning Clicks Into Customers. Visitors Into Revenue.</h2>
+    
+    <p class="center-subtext">
+      Strategic web design, development, and SEO that doesn't just look good — it delivers measurable business growth. Here's what our clients typically achieve.
+    </p>
+    
+    <div class="center-divider"></div>
+    
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-number" data-target="312">0</div>
+        <div class="stat-symbol">%</div>
+        <div class="stat-label">Average ROI Increase</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="2.5">0</div>
+        <div class="stat-symbol">x</div>
+        <div class="stat-label">More Qualified Leads</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="18">0</div>
+        <div class="stat-symbol">%</div>
+        <div class="stat-label">Lower Cost Per Lead</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="94">0</div>
+        <div class="stat-symbol">%</div>
+        <div class="stat-label">Client Retention Rate</div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<script>
+// Scroll-triggered count-up animation
+(function() {
+  const section = document.querySelector('#center-message-section');
+  if (!section) return;
+  
+  const statNumbers = section.querySelectorAll('.stat-number');
+  let animated = false;
+  
+  function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    return rect.top <= windowHeight - 100 && rect.bottom >= 0;
+  }
+  
+  function animateNumbers() {
+    if (animated) return;
+    if (!isElementInViewport(section)) return;
+    
+    animated = true;
+    
+    statNumbers.forEach(el => {
+      const target = parseFloat(el.getAttribute('data-target'));
+      if (isNaN(target)) return;
+      
+      let current = 0;
+      const isDecimal = target % 1 !== 0;
+      const increment = target / 50;
+      const stepTime = 1500 / 50;
+      
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          el.textContent = isDecimal ? target.toFixed(1) : Math.floor(target);
+          clearInterval(timer);
+        } else {
+          el.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
+        }
+      }, stepTime);
+    });
+  }
+  
+  window.addEventListener('scroll', animateNumbers);
+  window.addEventListener('resize', animateNumbers);
+  setTimeout(animateNumbers, 300);
+})();
+</script>
 <!-- PORTFOLIO -->
 <div id="portfolio">
   <div class="section-header" id="dynamicHeader">
